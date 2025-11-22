@@ -7,7 +7,7 @@ name = "selfcustody"
 version = "0.1.0"
 description = "Self-custody wallet toolkit scaffold in Python"
 readme = "README.md"
-authors = [{ name = "", email = "" }]
+authors = [{ name = "Self Custody", email = "maintainers@example.com" }]
 license = { text = "Apache-2.0" }
 requires-python = ">=3.11"
 keywords = ["wallet", "self-custody", "keys", "signing"]
@@ -16,7 +16,13 @@ classifiers = [
   "License :: OSI Approved :: Apache Software License",
   "Intended Audience :: Developers",
 ]
-dependencies = []
+dependencies = [
+  "fastapi>=0.115.0",
+  "httpx>=0.27.0",
+  "openai>=1.43.0",
+  "pydantic>=2.8.0",
+  "uvicorn>=0.30.0",
+]
 
 [project.optional-dependencies]
 dev = []

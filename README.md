@@ -56,6 +56,42 @@ embedded agents.
    python -m unittest discover
    ```
 
+## Running the FastAPI news digest service
+
+The repository now ships a simple FastAPI app that assembles a daily news digest from NewsAPI data and (optionally) scores articles with an LLM.
+
+1. Export the required environment variables:
+
+   ```bash
+   export NEWSAPI_KEY="<your NewsAPI key>"
+   # Optional overrides
+   export NEWS_TOPIC="technology"
+   export NEWSAPI_COUNTRY="us"
+   export MAX_HEADLINES=5
+   export LLM_SCORING_ENABLED=true        # turns on scoring
+   export OPENAI_API_KEY="<your OpenAI key>"  # enables OpenAI scoring
+   export SERVICE_TOKEN="<shared bearer token>"  # protects /run
+   # For offline/demo use you can point to bundled sample data
+   export NEWSAPI_SAMPLE_PATH=research/sample_newsapi_response.json
+   ```
+
+2. Start the API:
+
+   ```bash
+   uvicorn selfcustody.api:app --host 0.0.0.0 --port 8000
+   ```
+
+3. Trigger a digest:
+
+   ```bash
+   curl -X POST "http://localhost:8000/run" \
+     -H "Content-Type: application/json" \
+     -H "Authorization: Bearer ${SERVICE_TOKEN}" \
+     -d '{"topic": "custody"}'
+   ```
+
+The response includes the current day’s digest, headline metadata, and optional LLM/keyword scores.
+
 ## Architecture Goals
 
 - Provide lightweight, dependency-free primitives that can be embedded into
