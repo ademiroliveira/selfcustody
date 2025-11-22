@@ -1,0 +1,30 @@
+{
+  "status": "ok",
+  "totalResults": 3,
+  "articles": [
+    {
+      "source": { "name": "Example Times" },
+      "author": "Reporter 1",
+      "title": "AI breakthroughs accelerate secure wallets",
+      "description": "A look at how AI models are improving digital asset security.",
+      "url": "https://example.com/ai-wallets",
+      "publishedAt": "2024-06-20T08:00:00Z"
+    },
+    {
+      "source": { "name": "Crypto News" },
+      "author": "Reporter 2",
+      "title": "DeFi platforms adopt new custody tools",
+      "description": "Decentralized exchanges are embracing new self-custody standards.",
+      "url": "https://example.com/defi-custody",
+      "publishedAt": "2024-06-20T09:30:00Z"
+    },
+    {
+      "source": { "name": "Tech Wire" },
+      "author": "Reporter 3",
+      "title": "Quantum safety remains priority for wallet designers",
+      "description": "Engineering teams outline roadmaps for post-quantum support.",
+      "url": "https://example.com/quantum-wallet",
+      "publishedAt": "2024-06-20T11:45:00Z"
+    }
+  ]
+}
