@@ -16,16 +16,15 @@ classifiers = [
   "License :: OSI Approved :: Apache Software License",
   "Intended Audience :: Developers",
 ]
-dependencies = [
+[project.optional-dependencies]
+dev = []
+news = [
   "fastapi>=0.115.0",
   "httpx>=0.27.0",
   "openai>=1.43.0",
   "pydantic>=2.8.0",
   "uvicorn>=0.30.0",
 ]
-
-[project.optional-dependencies]
-dev = []
 
 [tool.setuptools]
 package-dir = { "" = "src" }
@@ -34,5 +33,5 @@ package-dir = { "" = "src" }
 where = ["src"]
 
 [tool.coverage.run]
-source = ["selfcustody"]
+source = ["selfcustody", "newsdigest"]
 branch = true

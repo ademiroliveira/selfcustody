@@ -6,8 +6,8 @@ from pathlib import Path
 import unittest
 from unittest.mock import patch
 
-from selfcustody.config import Settings
-from selfcustody.news import build_digest
+from newsdigest.config import Settings
+from newsdigest.news import build_digest
 
 
 class SettingsTestCase(unittest.TestCase):

@@ -27,10 +27,12 @@ embedded agents.
 .
 ├── pyproject.toml       # Project metadata and build configuration
 ├── src/
-│   └── selfcustody/     # Wallet, key-store, and runtime primitives
+│   ├── selfcustody/     # Wallet, key-store, and runtime primitives
+│   └── newsdigest/      # Standalone news digest service package
 ├── tests/
 │   ├── __init__.py      # Ensures src/ is importable during local testing
-│   └── test_runtime.py  # Example unit tests for the runtime helpers
+│   ├── test_runtime.py  # Example unit tests for the runtime helpers
+│   └── test_news.py     # Coverage for the news digest components
 └── README.md            # Project documentation
 ```
 
@@ -43,11 +45,12 @@ embedded agents.
    source .venv/bin/activate
    ```
 
-2. **Install the package in editable mode** (this pulls in FastAPI, httpx, and
-   OpenAI client dependencies used by the news digest service):
+2. **Install the packages in editable mode**. The base `selfcustody` package is
+   dependency-free; install the optional `news` extra to enable the standalone
+   news digest service (FastAPI/httpx/OpenAI dependencies):
 
    ```bash
-   pip install -e .
+   pip install -e '.[news]'
    ```
 
 3. **Run the unit tests**:
@@ -56,9 +59,9 @@ embedded agents.
    python -m unittest discover
    ```
 
-## Running the FastAPI news digest service
+## Running the FastAPI news digest service (separate package)
 
-The repository now ships a simple FastAPI app that assembles a daily news digest from NewsAPI data and (optionally) scores articles with an LLM.
+The repository now ships a standalone `newsdigest` package that assembles a daily news digest from NewsAPI data and (optionally) scores articles with an LLM. Keep it isolated from wallet code by installing the `news` extra into a separate virtual environment if desired.
 
 1. Export the required environment variables:
 
@@ -75,10 +78,10 @@ The repository now ships a simple FastAPI app that assembles a daily news digest
    export NEWSAPI_SAMPLE_PATH=research/sample_newsapi_response.json
    ```
 
-2. Start the API:
+2. Start the API from the `newsdigest` package:
 
    ```bash
-   uvicorn selfcustody.api:app --host 0.0.0.0 --port 8000
+   uvicorn newsdigest.api:app --host 0.0.0.0 --port 8000
    ```
 
 3. Trigger a digest:
