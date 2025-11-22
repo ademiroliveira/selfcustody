@@ -43,8 +43,8 @@ embedded agents.
    source .venv/bin/activate
    ```
 
-2. **Install the package in editable mode** (no external dependencies are
-   required):
+2. **Install the package in editable mode** (this pulls in FastAPI, httpx, and
+   OpenAI client dependencies used by the news digest service):
 
    ```bash
    pip install -e .
