@@ -1,0 +1,135 @@
+/* React Flow Custom Styles */
+.react-flow {
+  background-color: var(--color-bg-secondary);
+}
+
+.react-flow__node {
+  font-family: var(--font-sans);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-md);
+  transition: box-shadow var(--transition-base);
+}
+
+.react-flow__node:hover {
+  box-shadow: var(--shadow-lg);
+}
+
+.react-flow__node.selected {
+  box-shadow: 0 0 0 2px var(--color-primary);
+}
+
+/* Node Type Specific Styles */
+.node-start {
+  background: linear-gradient(135deg, var(--color-success) 0%, var(--color-success-light) 100%);
+  border: 2px solid var(--color-success);
+  color: white;
+  font-weight: 600;
+  min-width: 140px;
+}
+
+.node-action {
+  background: white;
+  border: 2px solid var(--color-primary);
+  color: var(--color-text-primary);
+  min-width: 180px;
+}
+
+.node-security-checkpoint {
+  background: linear-gradient(135deg, var(--color-security) 0%, var(--color-security-light) 100%);
+  border: 2px solid var(--color-security);
+  color: var(--color-text-primary);
+  min-width: 200px;
+}
+
+.node-decision {
+  background: white;
+  border: 2px solid var(--color-warning);
+  color: var(--color-text-primary);
+  min-width: 160px;
+}
+
+.node-error {
+  background: linear-gradient(135deg, var(--color-error) 0%, var(--color-error-light) 100%);
+  border: 2px solid var(--color-error);
+  color: var(--color-text-primary);
+  min-width: 180px;
+}
+
+.node-success {
+  background: linear-gradient(135deg, var(--color-success) 0%, var(--color-success-light) 100%);
+  border: 2px solid var(--color-success);
+  color: var(--color-text-primary);
+  min-width: 140px;
+}
+
+.node-ux-friction {
+  background: linear-gradient(135deg, var(--color-friction) 0%, var(--color-friction-light) 100%);
+  border: 2px solid var(--color-friction);
+  color: var(--color-text-primary);
+  min-width: 180px;
+}
+
+/* Edge Styles */
+.react-flow__edge-path {
+  stroke: var(--color-border-strong);
+  stroke-width: 2;
+}
+
+.react-flow__edge.selected .react-flow__edge-path {
+  stroke: var(--color-primary);
+  stroke-width: 3;
+}
+
+.react-flow__edge-error .react-flow__edge-path {
+  stroke: var(--color-error);
+  stroke-dasharray: 5, 5;
+}
+
+.react-flow__edge-alternative .react-flow__edge-path {
+  stroke: var(--color-warning);
+  stroke-dasharray: 3, 3;
+}
+
+.react-flow__edge-text {
+  font-size: var(--font-size-xs);
+  fill: var(--color-text-secondary);
+}
+
+/* Controls */
+.react-flow__controls {
+  box-shadow: var(--shadow-md);
+  border-radius: var(--radius-lg);
+  border: 1px solid var(--color-border);
+  background: white;
+}
+
+.react-flow__controls-button {
+  background: white;
+  border-bottom: 1px solid var(--color-border);
+  transition: background-color var(--transition-fast);
+}
+
+.react-flow__controls-button:hover {
+  background-color: var(--color-bg-secondary);
+}
+
+.react-flow__controls-button svg {
+  fill: var(--color-text-secondary);
+}
+
+/* MiniMap */
+.react-flow__minimap {
+  box-shadow: var(--shadow-md);
+  border-radius: var(--radius-lg);
+  border: 1px solid var(--color-border);
+  background: white;
+}
+
+/* Background */
+.react-flow__background {
+  background-color: var(--color-bg-secondary);
+}
+
+.react-flow__background-pattern {
+  stroke: var(--color-border);
+}
