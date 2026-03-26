@@ -1,0 +1,3 @@
+[submodule "designpowers"]
+	path = designpowers
+	url = https://github.com/Owl-Listener/designpowers
