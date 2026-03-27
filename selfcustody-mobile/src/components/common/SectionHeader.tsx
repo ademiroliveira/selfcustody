@@ -1,0 +1,28 @@
+import React from 'react';
+import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
+import { colors } from '../../theme';
+
+interface SectionHeaderProps {
+  title: string;
+  action?: string;
+  onAction?: () => void;
+}
+
+export default function SectionHeader({ title, action, onAction }: SectionHeaderProps) {
+  return (
+    <View style={styles.row}>
+      <Text style={styles.title}>{title}</Text>
+      {action && (
+        <TouchableOpacity onPress={onAction}>
+          <Text style={styles.action}>{action}</Text>
+        </TouchableOpacity>
+      )}
+    </View>
+  );
+}
+
+const styles = StyleSheet.create({
+  row: { flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', marginBottom: 12 },
+  title: { color: colors.text.secondary, fontSize: 13, fontWeight: '600', textTransform: 'uppercase', letterSpacing: 0.8 },
+  action: { color: colors.accent.indigo, fontSize: 13, fontWeight: '500' },
+});

@@ -1,0 +1,55 @@
+import type { DigestResponse } from '../types/news';
+
+export const MOCK_DIGEST: DigestResponse = {
+  generatedAt: new Date().toISOString(),
+  topic: 'crypto custody',
+  country: 'us',
+  scoringMode: 'keyword',
+  items: [
+    {
+      title: 'SEC Approves New Self-Custody Framework for Registered Investment Advisers',
+      description: 'The SEC has issued guidance allowing RIAs to hold client digital assets in self-custody under specific conditions, marking a significant shift in regulatory stance.',
+      url: 'https://example.com/sec-custody',
+      publishedAt: new Date(Date.now() - 1000 * 60 * 60 * 3).toISOString(),
+      source: 'CoinDesk',
+      score: 0.95,
+      reasoning: 'Directly relevant to self-custody wallet users. Regulatory clarity is the primary adoption blocker for accredited investors.',
+    },
+    {
+      title: 'Ethereum Staking Yields Hit 12-Month Low as Validator Count Surpasses 1 Million',
+      description: 'ETH staking APR has compressed to 3.1% as the validator set reaches a record 1.02 million validators, diluting yields across all major liquid staking protocols.',
+      url: 'https://example.com/eth-staking',
+      publishedAt: new Date(Date.now() - 1000 * 60 * 60 * 5).toISOString(),
+      source: 'The Block',
+      score: 0.88,
+      reasoning: 'High relevance: user holds 2.1 ETH staked on Lido. Yield compression directly impacts portfolio income.',
+    },
+    {
+      title: 'Pendle Finance TVL Reaches $4.8B Following Yield Tokenization Protocol Upgrade',
+      description: 'Pendle\'s total value locked hit a new all-time high following the launch of its v3 yield market infrastructure, attracting institutional capital.',
+      url: 'https://example.com/pendle-tvl',
+      publishedAt: new Date(Date.now() - 1000 * 60 * 60 * 8).toISOString(),
+      source: 'DeFi Llama',
+      score: 0.92,
+      reasoning: 'Directly relevant: user holds 12,000 PENDLE (36% of portfolio). TVL growth is a positive signal for protocol health.',
+    },
+    {
+      title: 'Bitcoin Spot ETF Inflows Hit $1.2B in Single Day as Institutional Demand Accelerates',
+      description: 'BlackRock and Fidelity ETFs recorded combined inflows of $1.2 billion, the second-highest single-day total since launch, suggesting renewed institutional momentum.',
+      url: 'https://example.com/btc-etf',
+      publishedAt: new Date(Date.now() - 1000 * 60 * 60 * 10).toISOString(),
+      source: 'Bloomberg',
+      score: 0.85,
+      reasoning: 'Relevant to BTC position (38% of portfolio). Strong ETF inflows are historically correlated with 7-14 day price appreciation.',
+    },
+    {
+      title: 'Frontier Capital Raises $180M for Digital Asset Infrastructure Fund',
+      description: 'Frontier Investors backed a new fund focused on self-custody infrastructure, custody-as-a-service platforms, and AI-driven portfolio management for digital assets.',
+      url: 'https://example.com/frontier-fund',
+      publishedAt: new Date(Date.now() - 1000 * 60 * 60 * 14).toISOString(),
+      source: 'Forbes',
+      score: 0.78,
+      reasoning: 'Adjacent to user profile — Frontier investor audience. Signals growing institutional capital flow into self-custody infrastructure.',
+    },
+  ],
+};
