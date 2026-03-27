@@ -83,7 +83,15 @@ export default function ChatScreen() {
         ref={flatListRef}
         data={messages}
         keyExtractor={(m) => m.id}
-        renderItem={({ item }) => <ChatBubble message={item} />}
+        renderItem={({ item }) => (
+            <ChatBubble
+              message={item}
+              onRetry={item.error ? () => {
+                const lastUser = [...messages].reverse().find((m) => m.role === 'user');
+                if (lastUser) handleSend(lastUser.content);
+              } : undefined}
+            />
+          )}
         contentContainerStyle={styles.messageList}
         ListFooterComponent={isStreaming ? null : undefined}
       />

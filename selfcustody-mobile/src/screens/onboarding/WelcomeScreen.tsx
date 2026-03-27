@@ -1,16 +1,15 @@
 import React from 'react';
 import { View, Text, StyleSheet, SafeAreaView } from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
-import { useWalletStore } from '../../store/walletStore';
+import { useNavigation } from '@react-navigation/native';
 import Button from '../../components/common/Button';
 import { colors } from '../../theme';
 
 export default function WelcomeScreen() {
-  const setup = useWalletStore((s) => s.setup);
+  const nav = useNavigation<any>();
 
   const handleCreate = () => {
-    // In prototype: skip full onboarding, go directly to app
-    setup('Primary Wallet', '0xA1b2...C3d4');
+    nav.navigate('SeedPhrase');
   };
 
   return (

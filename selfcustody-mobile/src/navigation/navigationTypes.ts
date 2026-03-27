@@ -39,5 +39,6 @@ export type MainTabParams = {
 
 export type RootStackParams = {
   Onboarding: NavigatorScreenParams<OnboardingStackParams>;
+  SeedPhrase: undefined;
   Main: NavigatorScreenParams<MainTabParams>;
 };
