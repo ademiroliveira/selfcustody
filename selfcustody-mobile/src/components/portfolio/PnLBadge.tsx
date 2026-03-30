@@ -11,10 +11,11 @@ interface PnLBadgeProps {
 export default function PnLBadge({ value, suffix = '%', prefix = '' }: PnLBadgeProps) {
   const isPositive = value >= 0;
   const color = isPositive ? colors.text.positive : colors.text.negative;
+  const arrow = isPositive ? '▲' : '▼';
   const sign = isPositive ? '+' : '';
   return (
     <Text style={[styles.text, { color }]}>
-      {prefix}{sign}{value.toFixed(2)}{suffix}
+      {arrow} {prefix}{sign}{value.toFixed(2)}{suffix}
     </Text>
   );
 }
