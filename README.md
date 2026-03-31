@@ -1,113 +1,112 @@
-# Self-Custody Wallet Scaffold
+# selfcustody
 
-This repository contains the baseline Python scaffold for a self-custody wallet
-toolkit. The project focuses on three primary areas:
+Monorepo for the Selfcustody investor toolkit. Four initiatives, loosely coupled:
 
-- **Wallet management** – Interfaces and metadata that describe wallet
-  capabilities and account discovery.
-- **Key storage** – Abstractions that encapsulate local or remote key-store
-  implementations.
-- **Transaction signing** – Contracts for producing signing callables that
-  operate on raw payloads.
+| Directory | What it is | Language |
+|-----------|-----------|----------|
+| `src/selfcustody/` + `src/newsdigest/` | Python wallet primitives + news digest service | Python |
+| `cloudflare/` | Cloudflare Worker proxy for the news service | JavaScript |
+| `selfcustody-mobile/` | React Native iOS prototype (Expo) | TypeScript |
+| `src/web/` | Interactive wallet flow visualizer | TypeScript |
 
-The scaffold emphasises clarity and portability: there are no third-party
-runtime dependencies, making it suitable for command-line tools, services, or
-embedded agents.
+See **`CLAUDE.md`** for quick-starts and v0.2 priorities. See **`design-state.md`** for design decisions, personas, and debt register.
 
-## Tech Stack
+---
 
-- **Runtime**: Python 3.11+
-- **Tooling**: `setuptools` packaging with standard library `unittest` test
-  suites. Optional `coverage` configuration is provided should you wish to add
-  the dependency later.
+## Python wallet toolkit (`src/selfcustody/`)
 
-## Project Layout
+Dependency-free wallet primitives: key-store abstractions, wallet metadata, and runtime bootstrap helpers. Suitable for embedding in larger services or CLI tools.
 
-```
-.
-├── pyproject.toml       # Project metadata and build configuration
-├── src/
-│   ├── selfcustody/     # Wallet, key-store, and runtime primitives
-│   └── newsdigest/      # Standalone news digest service package
-├── tests/
-│   ├── __init__.py      # Ensures src/ is importable during local testing
-│   ├── test_runtime.py  # Example unit tests for the runtime helpers
-│   └── test_news.py     # Coverage for the news digest components
-└── README.md            # Project documentation
+```bash
+python -m venv .venv && source .venv/bin/activate
+pip install -e '.[news]'   # omit [news] to skip FastAPI/httpx/OpenAI deps
+python -m unittest discover
 ```
 
-## Getting Started
+---
 
-1. **Create a virtual environment** (recommended):
+## Python news digest service (`src/newsdigest/`)
 
-   ```bash
-   python -m venv .venv
-   source .venv/bin/activate
-   ```
+Standalone FastAPI service that fetches headlines from NewsAPI and optionally scores them with an LLM. Used by the mobile app via `EXPO_PUBLIC_NEWSDIGEST_URL`.
 
-2. **Install the packages in editable mode**. The base `selfcustody` package is
-   dependency-free; install the optional `news` extra to enable the standalone
-   news digest service (FastAPI/httpx/OpenAI dependencies):
+```bash
+export NEWSAPI_SAMPLE_PATH=research/sample_newsapi_response.json
+export LLM_SCORING_ENABLED=false
+uvicorn newsdigest.api:app --host 0.0.0.0 --port 8000
 
-   ```bash
-   pip install -e '.[news]'
-   ```
+# Trigger a digest:
+curl -X POST http://localhost:8000/run \
+  -H "Content-Type: application/json" \
+  -d '{"topic": "custody"}'
+```
 
-3. **Run the unit tests**:
+**Optional env vars:** `NEWSAPI_KEY`, `OPENAI_API_KEY`, `SERVICE_TOKEN`, `NEWS_TOPIC`, `MAX_HEADLINES`
 
-   ```bash
-   python -m unittest discover
-   ```
+---
 
-## Running the FastAPI news digest service (separate package)
+## Cloudflare Worker proxy (`cloudflare/`)
 
-The repository now ships a standalone `newsdigest` package that assembles a daily news digest from NewsAPI data and (optionally) scores articles with an LLM. Keep it isolated from wallet code by installing the `news` extra into a separate virtual environment if desired.
+A thin Cloudflare Worker that proxies POST requests to the newsdigest `/run` endpoint, injecting the bearer token from Cloudflare environment variables. Useful for exposing the news service publicly without embedding secrets in the mobile app.
 
-1. Export the required environment variables:
+```bash
+cd cloudflare
+wrangler deploy
+```
 
-   ```bash
-   export NEWSAPI_KEY="<your NewsAPI key>"
-   # Optional overrides
-   export NEWS_TOPIC="technology"
-   export NEWSAPI_COUNTRY="us"
-   export MAX_HEADLINES=5
-   export LLM_SCORING_ENABLED=true        # turns on scoring
-   export OPENAI_API_KEY="<your OpenAI key>"  # enables OpenAI scoring
-   export SERVICE_TOKEN="<shared bearer token>"  # protects /run
-   # For offline/demo use you can point to bundled sample data
-   export NEWSAPI_SAMPLE_PATH=research/sample_newsapi_response.json
-   ```
+**Required Cloudflare env vars:** `SERVICE_ENDPOINT` (public URL of FastAPI deployment), `SERVICE_TOKEN`
 
-2. Start the API from the `newsdigest` package:
+---
 
-   ```bash
-   uvicorn newsdigest.api:app --host 0.0.0.0 --port 8000
-   ```
+## React Native mobile app (`selfcustody-mobile/`)
 
-3. Trigger a digest:
+High-fidelity iOS prototype for accredited investors. Combines portfolio visibility, AI-assisted agent actions with approval gates, and live news digest integration. Runs against mocked portfolio data by default; live features are environment-gated.
 
-   ```bash
-   curl -X POST "http://localhost:8000/run" \
-     -H "Content-Type: application/json" \
-     -H "Authorization: Bearer ${SERVICE_TOKEN}" \
-     -d '{"topic": "custody"}'
-   ```
+```bash
+cd selfcustody-mobile
+npm install --legacy-peer-deps
+npx expo start --ios   # iOS Simulator (requires macOS + Xcode)
+npx expo start         # Expo Go on device (same WiFi)
+```
 
-The response includes the current day’s digest, headline metadata, and optional LLM/keyword scores.
+**Optional env vars:**
+```
+EXPO_PUBLIC_CLAUDE_API_KEY=       # claude-sonnet-4-6 for live chat
+EXPO_PUBLIC_NEWSDIGEST_URL=http://localhost:8000
+EXPO_PUBLIC_NEWSDIGEST_TOKEN=
+```
 
-## Architecture Goals
+Demo auto-plays on Dashboard: T+15s agent alert → T+45s threat alert → T+90s yield info.
 
-- Provide lightweight, dependency-free primitives that can be embedded into
-  larger wallet applications.
-- Encourage strong typing and runtime validation through dataclasses and
-  explicit error handling.
-- Keep bootstrapping logic minimal yet extensible so concrete wallet and
-  key-store implementations can plug in quickly.
+---
 
-## Next Steps
+## React web visualizer (`src/web/`)
 
-- Add concrete wallet and key-store adapters (file-based, hardware signer,
-  remote signer, etc.).
-- Expand transaction-building helpers for specific blockchain ecosystems.
-- Integrate continuous integration and coverage reporting as the project grows.
-- Document security considerations for custody models and signing flows.
+Interactive flow diagram of wallet creation and transaction flows, built with React Flow. Deployed automatically to GitHub Pages on every push to `src/web/**`.
+
+```bash
+cd src/web
+npm install
+npm run dev
+```
+
+---
+
+## Repository split roadmap
+
+The current monorepo will be split into three repositories as the project grows toward production and brings in collaborators. Planned future state:
+
+### `selfcustody` — Python backend (keep current repo)
+- `src/selfcustody/`, `src/newsdigest/`, `cloudflare/`, `tests/`, `research/`, `pyproject.toml`
+
+### `selfcustody-mobile` — Mobile app + design system
+- `selfcustody-mobile/` contents → repo root
+- `designpowers/` git submodule → moved here (design tooling belongs with mobile)
+- `design-state.md` → moved here (mobile design source of truth)
+
+### `selfcustody-web` — React flow visualizer
+- `src/web/` → repo root
+- GitHub Pages workflow simplified (no `src/web/**` path filter needed)
+
+**Split method:** `git subtree split` per directory to preserve history, or copy + squash commit for a clean start.
+
+**When to split:** Before EAS Build / TestFlight phase, when bringing in mobile-only contributors.
