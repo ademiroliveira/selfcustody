@@ -20,7 +20,7 @@ export type AgentStackParams = {
 };
 
 export type ActivityStackParams = {
-  Activity: undefined;
+  ActivityList: undefined;
   TxDetail: { txId: string };
 };
 

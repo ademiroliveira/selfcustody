@@ -23,6 +23,6 @@ export default function SectionHeader({ title, action, onAction }: SectionHeader
 
 const styles = StyleSheet.create({
   row: { flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', marginBottom: 12 },
-  title: { color: colors.text.secondary, fontSize: 13, fontWeight: '600', textTransform: 'uppercase', letterSpacing: 0.8 },
+  title: { color: colors.text.tertiary, fontSize: 12, fontWeight: '700', textTransform: 'uppercase', letterSpacing: 1 },
   action: { color: colors.accent.indigo, fontSize: 13, fontWeight: '500' },
 });

@@ -10,6 +10,7 @@ interface AgentState {
   approveAction: (id: string) => void;
   rejectAction: (id: string, reason?: string) => void;
   setAgentStatus: (agentId: AgentId, status: AgentStatus) => void;
+  toggleAgent: (agentId: AgentId) => void;
   expireStaleActions: () => void;
 }
 
@@ -33,6 +34,7 @@ export const useAgentStore = create<AgentState>((set, get) => ({
 
   addAction: (action) =>
     set((state) => {
+      if (state.allActions.some((a) => a.id === action.id)) return state;
       const allActions = [action, ...state.allActions];
       return {
         allActions,
@@ -71,6 +73,11 @@ export const useAgentStore = create<AgentState>((set, get) => ({
   setAgentStatus: (agentId, status) =>
     set((state) => ({
       agents: state.agents.map((a) => (a.id === agentId ? { ...a, status } : a)),
+    })),
+
+  toggleAgent: (agentId) =>
+    set((state) => ({
+      agents: state.agents.map((a) => (a.id === agentId ? { ...a, isEnabled: !a.isEnabled } : a)),
     })),
 
   expireStaleActions: () => {

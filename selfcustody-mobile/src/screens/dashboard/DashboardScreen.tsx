@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { View, Text, FlatList, StyleSheet, SafeAreaView, ScrollView } from 'react-native';
+import { View, Text, StyleSheet, SafeAreaView, ScrollView } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import type { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import type { DashboardStackParams } from '../../navigation/navigationTypes';
@@ -15,6 +15,7 @@ import AssetRow from '../../components/portfolio/AssetRow';
 import SectionHeader from '../../components/common/SectionHeader';
 import AgentCard from '../../components/agents/AgentCard';
 import NewsItem from '../../components/agents/NewsItem';
+import { Separator } from 'heroui-native';
 import { colors } from '../../theme';
 
 type Nav = NativeStackNavigationProp<DashboardStackParams, 'Dashboard'>;
@@ -50,12 +51,14 @@ export default function DashboardScreen() {
 
         <View style={styles.section}>
           <SectionHeader title="Assets" />
-          {portfolio.positions.map((pos) => (
-            <AssetRow
-              key={pos.asset.id}
-              position={pos}
-              onPress={() => nav.navigate('AssetDetail', { assetId: pos.asset.id })}
-            />
+          {portfolio.positions.map((pos, i) => (
+            <View key={pos.asset.id}>
+              <AssetRow
+                position={pos}
+                onPress={() => nav.navigate('AssetDetail', { assetId: pos.asset.id })}
+              />
+              {i < portfolio.positions.length - 1 && <Separator />}
+            </View>
           ))}
         </View>
 
@@ -88,5 +91,5 @@ const styles = StyleSheet.create({
   header: { paddingTop: 16, paddingBottom: 12 },
   greeting: { color: colors.text.secondary, fontSize: 15 },
   walletName: { color: colors.text.primary, fontSize: 22, fontWeight: '700' },
-  section: { marginTop: 24 },
+  section: { marginTop: 28 },
 });

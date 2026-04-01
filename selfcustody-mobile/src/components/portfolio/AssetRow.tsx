@@ -1,5 +1,6 @@
 import React from 'react';
-import { View, Text, TouchableOpacity, StyleSheet } from 'react-native';
+import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
+import { Avatar } from 'heroui-native';
 import type { Position } from '../../types/portfolio';
 import { colors } from '../../theme';
 import PnLBadge from './PnLBadge';
@@ -13,12 +14,16 @@ export default function AssetRow({ position, onPress }: AssetRowProps) {
   const { asset, balanceUSD, balance, price24hChangePct, allocationPct } = position;
   return (
     <TouchableOpacity style={styles.row} onPress={onPress} activeOpacity={0.7}>
-      <View style={[styles.iconCircle, { backgroundColor: asset.iconColor + '22' }]}>
-        <Text style={[styles.iconText, { color: asset.iconColor }]}>{asset.symbol.slice(0, 1)}</Text>
-      </View>
+      <Avatar size="md" style={{ backgroundColor: asset.iconColor + '22' }}>
+        <Avatar.Fallback>
+          <Text style={[styles.iconText, { color: asset.iconColor }]}>{asset.symbol.slice(0, 1)}</Text>
+        </Avatar.Fallback>
+      </Avatar>
       <View style={styles.info}>
         <Text style={styles.symbol}>{asset.symbol}</Text>
-        <Text style={styles.balance}>{balance.toLocaleString(undefined, { maximumFractionDigits: 4 })} · {allocationPct.toFixed(1)}%</Text>
+        <Text style={styles.balance}>
+          {balance.toLocaleString(undefined, { maximumFractionDigits: 4 })} · {allocationPct.toFixed(1)}%
+        </Text>
       </View>
       <View style={styles.right}>
         <Text style={styles.value}>${balanceUSD.toLocaleString(undefined, { maximumFractionDigits: 0 })}</Text>
@@ -29,12 +34,11 @@ export default function AssetRow({ position, onPress }: AssetRowProps) {
 }
 
 const styles = StyleSheet.create({
-  row: { flexDirection: 'row', alignItems: 'center', paddingVertical: 12, paddingHorizontal: 16, minHeight: 56 },
-  iconCircle: { width: 40, height: 40, borderRadius: 20, alignItems: 'center', justifyContent: 'center', marginRight: 12 },
+  row: { flexDirection: 'row', alignItems: 'center', paddingVertical: 10, gap: 12 },
   iconText: { fontSize: 16, fontWeight: '700' },
   info: { flex: 1 },
   symbol: { color: colors.text.primary, fontSize: 15, fontWeight: '600' },
   balance: { color: colors.text.secondary, fontSize: 13, marginTop: 2 },
-  right: { alignItems: 'flex-end' },
+  right: { alignItems: 'flex-end', gap: 2 },
   value: { color: colors.text.primary, fontSize: 15, fontWeight: '600' },
 });

@@ -1,5 +1,6 @@
 import React from 'react';
 import { View, Text, StyleSheet } from 'react-native';
+import { Avatar } from 'heroui-native';
 import type { Transaction } from '../../types/transactions';
 import { colors } from '../../theme';
 import Badge from '../common/Badge';
@@ -17,16 +18,22 @@ export default function TxRow({ tx }: Props) {
 
   return (
     <View style={styles.row}>
-      <View style={[styles.icon, { backgroundColor: tx.asset.iconColor + '22' }]}>
-        <Text style={{ color: tx.asset.iconColor, fontSize: 16 }}>{typeEmoji[tx.type] ?? '·'}</Text>
-      </View>
+      <Avatar size="md" style={{ backgroundColor: tx.asset.iconColor + '22' }}>
+        <Avatar.Fallback>
+          <Text style={{ color: tx.asset.iconColor, fontSize: 16 }}>{typeEmoji[tx.type] ?? '·'}</Text>
+        </Avatar.Fallback>
+      </Avatar>
       <View style={styles.info}>
-        <Text style={styles.type}>{tx.type.replace('-', ' ').replace(/\b\w/g, (c) => c.toUpperCase())} {tx.asset.symbol}</Text>
+        <Text style={styles.type}>
+          {tx.type.replace('-', ' ').replace(/\b\w/g, (c) => c.toUpperCase())} {tx.asset.symbol}
+        </Text>
         <Text style={styles.time}>{new Date(tx.timestamp).toLocaleDateString()}</Text>
         {tx.initiatedBy !== 'user' && <Badge label="Agent" variant="indigo" />}
       </View>
       <View style={styles.right}>
-        <Text style={[styles.amount, { color: amountColor }]}>{sign}${tx.amountUSD.toLocaleString(undefined, { maximumFractionDigits: 0 })}</Text>
+        <Text style={[styles.amount, { color: amountColor }]}>
+          {sign}${tx.amountUSD.toLocaleString(undefined, { maximumFractionDigits: 0 })}
+        </Text>
         <Badge label={tx.status} variant={tx.status === 'confirmed' ? 'positive' : tx.status === 'pending' ? 'alert' : 'negative'} />
       </View>
     </View>
@@ -35,7 +42,6 @@ export default function TxRow({ tx }: Props) {
 
 const styles = StyleSheet.create({
   row: { flexDirection: 'row', alignItems: 'center', paddingVertical: 12, paddingHorizontal: 16, gap: 12 },
-  icon: { width: 40, height: 40, borderRadius: 20, alignItems: 'center', justifyContent: 'center' },
   info: { flex: 1, gap: 3 },
   type: { color: colors.text.primary, fontSize: 14, fontWeight: '500' },
   time: { color: colors.text.tertiary, fontSize: 12 },
