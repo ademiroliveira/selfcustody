@@ -9,7 +9,7 @@ const Stack = createNativeStackNavigator<DashboardStackParams>();
 
 export default function DashboardStack() {
   return (
-    <Stack.Navigator screenOptions={{ headerStyle: { backgroundColor: colors.bg.secondary }, headerTintColor: colors.text.primary, headerTitleStyle: { color: colors.text.primary }, contentStyle: { backgroundColor: colors.bg.primary } }}>
+    <Stack.Navigator screenOptions={{ headerStyle: { backgroundColor: '#ffffff' }, headerTintColor: colors.text.primary, headerTitleStyle: { color: colors.text.primary }, contentStyle: { backgroundColor: colors.bg.primary } }}>
       <Stack.Screen name="Dashboard" component={DashboardScreen} options={{ headerShown: false }} />
       <Stack.Screen name="AssetDetail" component={AssetDetailScreen} options={{ title: 'Asset' }} />
     </Stack.Navigator>

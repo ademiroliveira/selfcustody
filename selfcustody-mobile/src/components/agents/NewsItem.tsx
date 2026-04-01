@@ -10,7 +10,7 @@ export default function NewsItem({ item }: Props) {
   const scoreColor = score > 0.85 ? colors.accent.green : score > 0.65 ? colors.accent.amber : colors.text.tertiary;
   return (
     <TouchableOpacity style={styles.row} onPress={() => item.url && Linking.openURL(item.url)} activeOpacity={0.7}>
-      <View style={styles.scoreBar}>
+      <View style={[styles.scoreBar, { backgroundColor: scoreColor + '33' }]}>
         <View style={[styles.scoreFill, { height: `${score * 100}%` as any, backgroundColor: scoreColor }]} />
       </View>
       <View style={styles.content}>
@@ -22,8 +22,8 @@ export default function NewsItem({ item }: Props) {
 }
 
 const styles = StyleSheet.create({
-  row: { flexDirection: 'row', paddingVertical: 10, gap: 10 },
-  scoreBar: { width: 3, backgroundColor: colors.bg.elevated, borderRadius: 2, overflow: 'hidden', justifyContent: 'flex-end' },
+  row: { flexDirection: 'row', paddingVertical: 10, gap: 12 },
+  scoreBar: { width: 3, borderRadius: 2, overflow: 'hidden', justifyContent: 'flex-end' },
   scoreFill: { width: '100%', borderRadius: 2 },
   content: { flex: 1 },
   title: { color: colors.text.primary, fontSize: 14, lineHeight: 20, fontWeight: '500' },

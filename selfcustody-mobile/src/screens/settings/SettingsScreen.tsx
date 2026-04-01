@@ -9,6 +9,7 @@ import { colors } from '../../theme';
 export default function SettingsScreen() {
   const { walletName, primaryAddress, reset } = useWalletStore();
   const agents = useAgentStore((s) => s.agents);
+  const toggleAgent = useAgentStore((s) => s.toggleAgent);
 
   return (
     <SafeAreaView style={styles.safe}>
@@ -27,7 +28,7 @@ export default function SettingsScreen() {
             {agents.map((agent) => (
               <View key={agent.id} style={styles.row}>
                 <Text style={styles.label}>{agent.name}</Text>
-                <Switch value={agent.isEnabled} thumbColor={agent.isEnabled ? colors.accent.indigo : colors.text.tertiary} trackColor={{ true: colors.accent.indigo + '55', false: colors.border.default }} onValueChange={() => {}} />
+                <Switch value={agent.isEnabled} thumbColor={agent.isEnabled ? colors.accent.indigo : colors.text.tertiary} trackColor={{ true: colors.accent.indigo + '55', false: colors.border.default }} onValueChange={() => toggleAgent(agent.id)} />
               </View>
             ))}
           </Card>

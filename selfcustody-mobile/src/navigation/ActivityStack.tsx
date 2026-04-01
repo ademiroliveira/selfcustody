@@ -8,8 +8,8 @@ const Stack = createNativeStackNavigator<ActivityStackParams>();
 
 export default function ActivityStack() {
   return (
-    <Stack.Navigator screenOptions={{ headerStyle: { backgroundColor: colors.bg.secondary }, headerTintColor: colors.text.primary, contentStyle: { backgroundColor: colors.bg.primary } }}>
-      <Stack.Screen name="Activity" component={ActivityScreen} options={{ headerShown: false }} />
+    <Stack.Navigator screenOptions={{ headerStyle: { backgroundColor: '#ffffff' }, headerTintColor: colors.text.primary, contentStyle: { backgroundColor: colors.bg.primary } }}>
+      <Stack.Screen name="ActivityList" component={ActivityScreen} options={{ headerShown: false }} />
     </Stack.Navigator>
   );
 }

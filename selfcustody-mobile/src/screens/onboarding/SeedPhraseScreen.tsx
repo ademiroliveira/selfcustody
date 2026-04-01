@@ -1,12 +1,10 @@
 import React, { useState, useEffect } from 'react';
-import { View, Text, StyleSheet, SafeAreaView, TouchableOpacity, AppState, Alert } from 'react-native';
-import { LinearGradient } from 'expo-linear-gradient';
+import { View, Text, StyleSheet, SafeAreaView, TouchableOpacity, AppState, Alert, ScrollView } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { useWalletStore } from '../../store/walletStore';
-import Button from '../../components/common/Button';
+import { Button, Card, Alert as HeroAlert } from 'heroui-native';
 import { colors } from '../../theme';
 
-// Mocked 12-word seed phrase for demo
 const MOCK_SEED = [
   'abandon', 'ability', 'capable', 'decade',
   'elegant', 'fortune', 'gallery', 'harbor',
@@ -19,7 +17,6 @@ export default function SeedPhraseScreen() {
   const [blurred, setBlurred] = useState(false);
   const [confirmed, setConfirmed] = useState(false);
 
-  // Blur when app goes to background
   useEffect(() => {
     const sub = AppState.addEventListener('change', (state) => {
       setBlurred(state !== 'active');
@@ -43,76 +40,86 @@ export default function SeedPhraseScreen() {
   };
 
   return (
-    <LinearGradient colors={['#0d0f1f', '#0A0C14']} style={styles.fill}>
+    <View style={styles.fill}>
       <SafeAreaView style={styles.container}>
-        <Text style={styles.heading}>Your Recovery Phrase</Text>
-        <Text style={styles.subheading}>
-          Write these 12 words down in order. This is the only way to recover your wallet.
-        </Text>
+        <ScrollView showsVerticalScrollIndicator={false} contentContainerStyle={styles.content}>
+          <Text style={styles.heading}>Your Recovery Phrase</Text>
+          <Text style={styles.subheading}>
+            Write these 12 words down in order. This is the only way to recover your wallet.
+          </Text>
 
-        <View style={styles.warningRow}>
-          <Text style={styles.warningIcon}>⚠</Text>
-          <Text style={styles.warningText}>Never share this with anyone. Never photograph it.</Text>
-        </View>
+          <HeroAlert status="warning" style={styles.warning}>
+            <HeroAlert.Indicator />
+            <HeroAlert.Content>
+              <HeroAlert.Title>Never share this with anyone</HeroAlert.Title>
+              <HeroAlert.Description>Never photograph your seed phrase or store it digitally.</HeroAlert.Description>
+            </HeroAlert.Content>
+          </HeroAlert>
 
-        <View style={styles.grid}>
-          {MOCK_SEED.map((word, i) => (
-            <View key={i} style={styles.wordCard}>
-              <Text style={styles.wordIndex}>{i + 1}</Text>
-              <Text style={[styles.word, blurred && styles.blurredText]}>
-                {blurred ? '••••••' : word}
-              </Text>
-            </View>
-          ))}
-        </View>
-
-        {blurred && (
-          <TouchableOpacity style={styles.revealBanner} onPress={() => setBlurred(false)}>
-            <Text style={styles.revealText}>Tap to reveal — make sure no one is watching</Text>
-          </TouchableOpacity>
-        )}
-
-        <TouchableOpacity
-          style={styles.checkRow}
-          onPress={() => setConfirmed(!confirmed)}
-          activeOpacity={0.7}
-        >
-          <View style={[styles.checkbox, confirmed && styles.checkboxChecked]}>
-            {confirmed && <Text style={styles.checkmark}>✓</Text>}
+          <View style={styles.grid}>
+            {MOCK_SEED.map((word, i) => (
+              <Card key={i} style={styles.wordCard}>
+                <Card.Body style={styles.wordBody}>
+                  <Text style={styles.wordIndex}>{i + 1}</Text>
+                  <Text style={[styles.word, blurred && styles.blurredText]}>
+                    {blurred ? '••••••' : word}
+                  </Text>
+                </Card.Body>
+              </Card>
+            ))}
           </View>
-          <Text style={styles.checkLabel}>I have written down all 12 words in a secure location</Text>
-        </TouchableOpacity>
 
-        <Button
-          label="Continue"
-          onPress={handleContinue}
-          disabled={!confirmed}
-          style={styles.btn}
-        />
+          {blurred && (
+            <TouchableOpacity onPress={() => setBlurred(false)}>
+              <Card style={styles.revealCard}>
+                <Card.Body>
+                  <Text style={styles.revealText}>Tap to reveal — make sure no one is watching</Text>
+                </Card.Body>
+              </Card>
+            </TouchableOpacity>
+          )}
+
+          <TouchableOpacity
+            style={styles.checkRow}
+            onPress={() => setConfirmed(!confirmed)}
+            activeOpacity={0.7}
+          >
+            <View style={[styles.checkbox, confirmed && styles.checkboxChecked]}>
+              {confirmed && <Text style={styles.checkmark}>✓</Text>}
+            </View>
+            <Text style={styles.checkLabel}>I have written down all 12 words in a secure location</Text>
+          </TouchableOpacity>
+
+          <Button
+            onPress={handleContinue}
+            isDisabled={!confirmed}
+          >
+            Continue
+          </Button>
+        </ScrollView>
       </SafeAreaView>
-    </LinearGradient>
+    </View>
   );
 }
 
 const styles = StyleSheet.create({
-  fill: { flex: 1 },
-  container: { flex: 1, paddingHorizontal: 24, paddingTop: 24, paddingBottom: 32 },
-  heading: { color: colors.text.primary, fontSize: 26, fontWeight: '800', marginBottom: 8 },
-  subheading: { color: colors.text.secondary, fontSize: 15, lineHeight: 22, marginBottom: 16 },
-  warningRow: { flexDirection: 'row', alignItems: 'center', backgroundColor: 'rgba(245,158,11,0.1)', borderRadius: 10, padding: 12, marginBottom: 20, gap: 10, borderWidth: 1, borderColor: colors.accent.amber + '44' },
-  warningIcon: { fontSize: 18, color: colors.accent.amber },
-  warningText: { color: colors.accent.amber, fontSize: 13, flex: 1, fontWeight: '500' },
-  grid: { flexDirection: 'row', flexWrap: 'wrap', gap: 8, marginBottom: 20 },
-  wordCard: { width: '47%', flexDirection: 'row', alignItems: 'center', backgroundColor: colors.bg.card, borderRadius: 10, paddingHorizontal: 12, paddingVertical: 10, borderWidth: 1, borderColor: colors.border.default, gap: 8 },
+  fill: { flex: 1, backgroundColor: '#ffffff' },
+  container: { flex: 1 },
+  content: { paddingHorizontal: 24, paddingTop: 8, paddingBottom: 32, gap: 16 },
+  heading: { color: colors.text.primary, fontSize: 26, fontWeight: '800' },
+  subheading: { color: colors.text.secondary, fontSize: 15, lineHeight: 22 },
+  warning: { marginVertical: 4 },
+  grid: { flexDirection: 'row', flexWrap: 'wrap', gap: 8 },
+  wordCard: { width: '47%' },
+  wordBody: { flexDirection: 'row', alignItems: 'center', gap: 8, paddingVertical: 10, paddingHorizontal: 12 },
   wordIndex: { color: colors.text.tertiary, fontSize: 12, fontWeight: '600', minWidth: 18 },
   word: { color: colors.text.primary, fontSize: 15, fontWeight: '600', fontFamily: 'monospace' },
   blurredText: { color: 'transparent', textShadowColor: colors.text.primary, textShadowRadius: 6 },
-  revealBanner: { backgroundColor: colors.bg.elevated, borderRadius: 10, padding: 14, alignItems: 'center', marginBottom: 16, borderWidth: 1, borderColor: colors.border.default },
-  revealText: { color: colors.accent.indigo, fontSize: 14, fontWeight: '500' },
-  checkRow: { flexDirection: 'row', alignItems: 'flex-start', gap: 12, marginBottom: 20 },
+  revealCard: { alignItems: 'center' },
+  revealText: { color: colors.accent.indigo, fontSize: 14, fontWeight: '500', textAlign: 'center' },
+  checkRow: { flexDirection: 'row', alignItems: 'flex-start', gap: 12 },
   checkbox: { width: 22, height: 22, borderRadius: 6, borderWidth: 2, borderColor: colors.border.strong, alignItems: 'center', justifyContent: 'center', marginTop: 1 },
   checkboxChecked: { backgroundColor: colors.accent.indigo, borderColor: colors.accent.indigo },
   checkmark: { color: '#fff', fontSize: 13, fontWeight: '700' },
   checkLabel: { color: colors.text.secondary, fontSize: 14, flex: 1, lineHeight: 20 },
-  btn: {},
 });

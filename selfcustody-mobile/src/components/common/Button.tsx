@@ -1,6 +1,6 @@
 import React from 'react';
-import { TouchableOpacity, Text, StyleSheet, ViewStyle, ActivityIndicator } from 'react-native';
-import { colors } from '../../theme';
+import { Button as HeroButton } from 'heroui-native';
+import { ViewStyle } from 'react-native';
 
 type ButtonVariant = 'primary' | 'secondary' | 'danger' | 'ghost';
 
@@ -13,33 +13,23 @@ interface ButtonProps {
   style?: ViewStyle;
 }
 
+const variantMap: Record<ButtonVariant, 'primary' | 'secondary' | 'outline' | 'ghost' | 'danger'> = {
+  primary: 'primary',
+  secondary: 'outline',
+  danger: 'danger',
+  ghost: 'ghost',
+};
+
 export default function Button({ label, onPress, variant = 'primary', disabled, loading, style }: ButtonProps) {
   return (
-    <TouchableOpacity
-      style={[styles.base, styles[variant], (disabled || loading) && styles.disabled, style]}
+    <HeroButton
+      variant={variantMap[variant]}
+      isDisabled={disabled || loading}
+      isLoading={loading}
       onPress={onPress}
-      disabled={disabled || loading}
-      activeOpacity={0.8}
+      style={style}
     >
-      {loading ? (
-        <ActivityIndicator color={variant === 'ghost' ? colors.accent.indigo : '#fff'} />
-      ) : (
-        <Text style={[styles.label, variant === 'ghost' && styles.ghostLabel, variant === 'danger' && styles.dangerLabel]}>
-          {label}
-        </Text>
-      )}
-    </TouchableOpacity>
+      {label}
+    </HeroButton>
   );
 }
-
-const styles = StyleSheet.create({
-  base: { borderRadius: 12, paddingVertical: 14, paddingHorizontal: 20, alignItems: 'center', justifyContent: 'center' },
-  primary: { backgroundColor: colors.accent.indigo },
-  secondary: { backgroundColor: colors.bg.elevated, borderWidth: 1, borderColor: colors.border.default },
-  danger: { backgroundColor: 'transparent', borderWidth: 1, borderColor: colors.accent.rose },
-  ghost: { backgroundColor: 'transparent' },
-  disabled: { opacity: 0.5 },
-  label: { color: colors.text.primary, fontSize: 16, fontWeight: '600' },
-  ghostLabel: { color: colors.accent.indigo },
-  dangerLabel: { color: colors.accent.rose },
-});

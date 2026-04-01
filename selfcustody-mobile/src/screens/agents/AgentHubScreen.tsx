@@ -1,16 +1,16 @@
 import React from 'react';
-import { View, Text, ScrollView, SafeAreaView, StyleSheet, TouchableOpacity } from 'react-native';
+import { View, Text, StyleSheet, SafeAreaView, ScrollView } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import type { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import type { AgentStackParams } from '../../navigation/navigationTypes';
 import { useAgentStore } from '../../store/agentStore';
 import { useApprovalQueue } from '../../hooks/useApprovalQueue';
 import { useNewsDigest } from '../../hooks/useNewsDigest';
+import { Button, Card } from 'heroui-native';
 import AgentCard from '../../components/agents/AgentCard';
 import SuggestionCard from '../../components/agents/SuggestionCard';
 import NewsItem from '../../components/agents/NewsItem';
 import SectionHeader from '../../components/common/SectionHeader';
-import Button from '../../components/common/Button';
 import { colors } from '../../theme';
 
 type Nav = NativeStackNavigationProp<AgentStackParams, 'AgentHub'>;
@@ -40,7 +40,9 @@ export default function AgentHubScreen() {
         </View>
 
         <View style={styles.section}>
-          <SectionHeader title={approvalQueue.length > 0 ? `Pending Approval (${approvalQueue.length})` : 'Pending Approval'} />
+          <SectionHeader
+            title={approvalQueue.length > 0 ? `Pending Approval (${approvalQueue.length})` : 'Pending Approval'}
+          />
           {approvalQueue.length > 0 ? (
             approvalQueue.map((action) => (
               <SuggestionCard
@@ -52,11 +54,15 @@ export default function AgentHubScreen() {
               />
             ))
           ) : (
-            <View style={styles.emptyState}>
-              <Text style={styles.emptyIcon}>✦</Text>
-              <Text style={styles.emptyText}>No pending approvals</Text>
-              <Text style={styles.emptySubtext}>Agents are watching your portfolio. Any actions requiring your approval will appear here.</Text>
-            </View>
+            <Card>
+              <Card.Body style={styles.emptyBody}>
+                <Text style={styles.emptyIcon}>✦</Text>
+                <Text style={styles.emptyText}>No pending approvals</Text>
+                <Text style={styles.emptySubtext}>
+                  Agents are watching your portfolio. Any actions requiring your approval will appear here.
+                </Text>
+              </Card.Body>
+            </Card>
           )}
         </View>
 
@@ -69,11 +75,9 @@ export default function AgentHubScreen() {
           </View>
         )}
 
-        <Button
-          label="Ask the AI Assistant"
-          onPress={() => nav.navigate('Chat', {})}
-          style={styles.chatBtn}
-        />
+        <Button onPress={() => nav.navigate('Chat', {})} style={styles.chatBtn}>
+          Ask the AI Assistant
+        </Button>
       </ScrollView>
     </SafeAreaView>
   );
@@ -84,9 +88,9 @@ const styles = StyleSheet.create({
   content: { padding: 16, paddingBottom: 32 },
   heading: { color: colors.text.primary, fontSize: 28, fontWeight: '800', marginBottom: 20 },
   section: { marginBottom: 24 },
+  emptyBody: { alignItems: 'center', paddingVertical: 24, gap: 6 },
+  emptyIcon: { fontSize: 24, color: colors.text.tertiary },
+  emptyText: { color: colors.text.secondary, fontSize: 15, fontWeight: '600' },
+  emptySubtext: { color: colors.text.tertiary, fontSize: 13, textAlign: 'center', lineHeight: 18 },
   chatBtn: { marginTop: 8 },
-  emptyState: { alignItems: 'center', paddingVertical: 24, backgroundColor: colors.bg.card, borderRadius: 16, borderWidth: 1, borderColor: colors.border.subtle },
-  emptyIcon: { fontSize: 24, marginBottom: 8, color: colors.text.tertiary },
-  emptyText: { color: colors.text.secondary, fontSize: 15, fontWeight: '600', marginBottom: 4 },
-  emptySubtext: { color: colors.text.tertiary, fontSize: 13, textAlign: 'center', paddingHorizontal: 24, lineHeight: 18 },
 });
