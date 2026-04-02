@@ -25,7 +25,7 @@ export default function PortfolioSummaryCard({ portfolio, custodyScore, onCustod
           <Text style={styles.separator}> · </Text>
           <PnLBadge value={portfolio.totalUnrealizedPnLPct} suffix="% all time" />
         </View>
-        <TouchableOpacity style={styles.healthBar} onPress={onCustodyPress}>
+        <TouchableOpacity style={styles.healthBar} onPress={onCustodyPress} accessibilityRole="button" accessibilityLabel={`Custody health score ${custodyScore} out of 100. Tap to view details`}>
           <View style={styles.healthTrack}>
             <View style={[styles.healthFill, { width: `${custodyScore}%` as any, backgroundColor: scoreColor }]} />
           </View>

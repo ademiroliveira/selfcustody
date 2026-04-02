@@ -81,16 +81,18 @@ export default function AssetDetailScreen() {
             variant="outline"
             onPress={() => Alert.alert('Send — Coming Soon', 'Live transaction sending is coming in the next release.', [{ text: 'OK' }])}
             style={styles.actionBtn}
+            accessibilityLabel={`Send ${asset.symbol}`}
           >
             Send
           </Button>
-          <Button variant="outline" onPress={() => setReceiveVisible(true)} style={styles.actionBtn}>
+          <Button variant="outline" onPress={() => setReceiveVisible(true)} style={styles.actionBtn} accessibilityLabel={`Receive ${asset.symbol}`}>
             Receive
           </Button>
           <Button
             variant="outline"
             onPress={() => Alert.alert('Swap — Coming Soon', 'Token swaps are coming in the next release.', [{ text: 'OK' }])}
             style={styles.actionBtn}
+            accessibilityLabel={`Swap ${asset.symbol}`}
           >
             Swap
           </Button>
@@ -98,8 +100,8 @@ export default function AssetDetailScreen() {
       </ScrollView>
 
       <Modal visible={receiveVisible} transparent animationType="slide" onRequestClose={() => setReceiveVisible(false)}>
-        <Pressable style={styles.modalOverlay} onPress={() => setReceiveVisible(false)}>
-          <Pressable style={styles.modalSheet} onPress={() => {}}>
+        <Pressable style={styles.modalOverlay} onPress={() => setReceiveVisible(false)} accessibilityRole="button" accessibilityLabel="Close receive address modal">
+          <Pressable style={styles.modalSheet} onPress={() => {}} accessible={false}>
             <Card>
               <Card.Header>
                 <Text style={styles.modalTitle}>Receive {asset.symbol}</Text>

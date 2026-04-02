@@ -19,7 +19,7 @@ interface Props {
 
 export default function AgentCard({ agent, onPress }: Props) {
   return (
-    <TouchableOpacity onPress={onPress} activeOpacity={0.8} style={styles.wrap}>
+    <TouchableOpacity onPress={onPress} activeOpacity={0.8} style={styles.wrap} accessibilityRole="button" accessibilityLabel={`${agent.name}. Status: ${agent.status}${agent.pendingActionCount > 0 ? `. ${agent.pendingActionCount} pending action${agent.pendingActionCount > 1 ? 's' : ''}` : ''}`}>
       <Card variant={agent.status === 'alert' ? 'secondary' : 'default'}>
         <Card.Body style={styles.body}>
           <View style={styles.header}>

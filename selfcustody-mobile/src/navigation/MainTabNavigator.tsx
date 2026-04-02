@@ -43,22 +43,22 @@ export default function MainTabNavigator() {
       <Tab.Screen
         name="Portfolio"
         component={DashboardStack}
-        options={{ tabBarLabel: 'Portfolio', tabBarIcon: () => <TabIcon label="Portfolio" emoji="◈" /> }}
+        options={{ tabBarLabel: 'Portfolio', tabBarIcon: () => <TabIcon label="Portfolio" emoji="◈" />, tabBarAccessibilityLabel: 'Portfolio tab' }}
       />
       <Tab.Screen
         name="Agents"
         component={AgentStack}
-        options={{ tabBarLabel: 'Agents', tabBarIcon: () => <TabIcon label="Agents" emoji="✦" badge={pendingCount} /> }}
+        options={{ tabBarLabel: 'Agents', tabBarIcon: () => <TabIcon label="Agents" emoji="✦" badge={pendingCount} />, tabBarAccessibilityLabel: pendingCount > 0 ? `Agents tab. ${pendingCount} pending action${pendingCount > 1 ? 's' : ''}` : 'Agents tab' }}
       />
       <Tab.Screen
         name="Activity"
         component={ActivityStack}
-        options={{ tabBarLabel: 'Activity', tabBarIcon: () => <TabIcon label="Activity" emoji="◷" /> }}
+        options={{ tabBarLabel: 'Activity', tabBarIcon: () => <TabIcon label="Activity" emoji="◷" />, tabBarAccessibilityLabel: 'Activity tab' }}
       />
       <Tab.Screen
         name="SecurityTab"
         component={SecurityStack}
-        options={{ tabBarLabel: 'Security', tabBarIcon: () => <TabIcon label="Security" emoji="⬡" badge={securityBadge} /> }}
+        options={{ tabBarLabel: 'Security', tabBarIcon: () => <TabIcon label="Security" emoji="⬡" badge={securityBadge} />, tabBarAccessibilityLabel: securityBadge > 0 ? 'Security tab. Attention required' : 'Security tab' }}
       />
     </Tab.Navigator>
   );

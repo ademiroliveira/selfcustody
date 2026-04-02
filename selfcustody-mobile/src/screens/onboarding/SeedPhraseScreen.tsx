@@ -70,7 +70,7 @@ export default function SeedPhraseScreen() {
           </View>
 
           {blurred && (
-            <TouchableOpacity onPress={() => setBlurred(false)}>
+            <TouchableOpacity onPress={() => setBlurred(false)} accessibilityRole="button" accessibilityLabel="Reveal seed phrase. Make sure no one is watching">
               <Card style={styles.revealCard}>
                 <Card.Body>
                   <Text style={styles.revealText}>Tap to reveal — make sure no one is watching</Text>
@@ -83,6 +83,9 @@ export default function SeedPhraseScreen() {
             style={styles.checkRow}
             onPress={() => setConfirmed(!confirmed)}
             activeOpacity={0.7}
+            accessibilityRole="checkbox"
+            accessibilityLabel="I have written down all 12 words in a secure location"
+            accessibilityState={{ checked: confirmed }}
           >
             <View style={[styles.checkbox, confirmed && styles.checkboxChecked]}>
               {confirmed && <Text style={styles.checkmark}>✓</Text>}

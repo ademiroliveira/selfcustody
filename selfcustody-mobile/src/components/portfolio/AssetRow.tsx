@@ -13,7 +13,7 @@ interface AssetRowProps {
 export default function AssetRow({ position, onPress }: AssetRowProps) {
   const { asset, balanceUSD, balance, price24hChangePct, allocationPct } = position;
   return (
-    <TouchableOpacity style={styles.row} onPress={onPress} activeOpacity={0.7}>
+    <TouchableOpacity style={styles.row} onPress={onPress} activeOpacity={0.7} accessibilityRole="button" accessibilityLabel={`View ${asset.name} details. Balance $${balanceUSD.toLocaleString(undefined, { maximumFractionDigits: 0 })}, ${price24hChangePct >= 0 ? 'up' : 'down'} ${Math.abs(price24hChangePct).toFixed(1)}% today`}>
       <Avatar size="md" style={{ backgroundColor: asset.iconColor + '22' }}>
         <Avatar.Fallback>
           <Text style={[styles.iconText, { color: asset.iconColor }]}>{asset.symbol.slice(0, 1)}</Text>
