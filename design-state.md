@@ -41,17 +41,22 @@ _Formal persona documents not yet created (skipped in this sprint). Scheduled fo
 
 ## Taste Profile
 
-_No formal taste calibration was run. Craft evaluation uses general quality standards + inferred signals from build decisions._
+_Calibrated: 2026-04-02 — design-taste agent. Reference: Revolut (clean, minimalist, almost neutral)._
 
-**Inferred from build:**
-- **Emotional target:** "Premium confidence" — serious, trustworthy, not flashy
-- **Quality level:** Prototype (v0.1) → Production target for v1
-- **Palette:** Deep navy dark UI (`#0A0C14`), Indigo accent (`#6366F1`), semantic colour for status
-- **Shape language:** 16px card radius, 12px button radius — consistent, not fully rounded
-- **Typography:** Inter for UI, monospace for addresses/numbers
-- **Density:** Generous — scrollable, not cramped
-
-_Full taste calibration scheduled before v0.2 visual polish._
+- **Emotional target:** Calm authority — serious and trustworthy, quiet enough that the numbers speak
+- **Quality level:** Production
+- **Key reference:** Revolut — warm near-white base, zero shadows, black CTAs, semantic-only accent colour
+- **Aesthetic principles:**
+  1. Restraint earns trust — colour earned by context, not assigned by role
+  2. Surface hierarchy over shadow — depth from background-colour shifts, never drop shadows
+  3. Black for commitment — financial actions use near-black CTAs (`#0f172a`)
+  4. Indigo is the agent layer — `#6366F1` for AI/agent UI only, never buttons
+  5. Charts as raw data — bold black line, full bleed, no decoration
+- **Background:** `#f2f2f7` (warm near-white), card surface `#ffffff`
+- **Primary CTA:** `#0f172a` near-black pill (replaces indigo buttons)
+- **Indigo (`#6366F1`):** Agent status pills, AI chat bubbles, agent glyphs only
+- **Shadows:** None — `elevation: 0` everywhere
+- **Taste document:** `docs/designpowers/taste/2026-04-02-selfcustody-taste.md`
 
 ---
 
@@ -94,6 +99,20 @@ _Full taste calibration scheduled before v0.2 visual polish._
 
 ---
 
+### 2026-04-02 — Taste calibration
+
+**Agent:** design-taste
+
+| Decision | Rationale |
+|----------|-----------|
+| Warm near-white base `#f2f2f7` | Confirms light mode; warmer tone than cold `#f8fafc` — matches Revolut reference |
+| Black CTAs everywhere (`#0f172a`) | Financial actions require weight, not colour. Indigo buttons removed |
+| Indigo demoted to agent layer only | Creates semantic boundary: black = my money, indigo = AI assistance |
+| Zero shadows | Surface-colour contrast (`#f2f2f7` → `#ffffff`) replaces all elevation |
+| Charts as raw black line | Aligns with DD-002 fix direction — bold, full-bleed, no decoration |
+
+---
+
 ## Design Debt Register
 
 _Items: 5 | Oldest: 2026-03-27_
@@ -131,5 +150,5 @@ _Items: 5 | Oldest: 2026-03-27_
 | design-critic | 2026-03-27 | Critique complete — 2 critical, 4 major, 3 minor |
 | accessibility-reviewer | 2026-03-27 | Review complete — 2 critical fixed, 2 minor deferred |
 | inclusive-personas | Not run | Scheduled v0.2 |
-| design-taste | Not run | Scheduled v0.2 |
+| design-taste | 2026-04-02 | Taste profile calibrated — Revolut reference, black CTAs, indigo to agent layer |
 | design-handoff | Not run | Pending production-ready milestone |
