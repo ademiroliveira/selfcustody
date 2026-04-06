@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { View, Text, StyleSheet, SafeAreaView, TouchableOpacity, AppState, Alert, ScrollView } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
-import { useWalletStore } from '../../store/walletStore';
 import { Button, Card, Alert as HeroAlert } from 'heroui-native';
 import { colors } from '../../theme';
 
@@ -13,7 +12,6 @@ const MOCK_SEED = [
 
 export default function SeedPhraseScreen() {
   const nav = useNavigation<any>();
-  const setup = useWalletStore((s) => s.setup);
   const [blurred, setBlurred] = useState(false);
   const [confirmed, setConfirmed] = useState(false);
 
@@ -31,11 +29,11 @@ export default function SeedPhraseScreen() {
         'Your seed phrase cannot be recovered if lost. Make sure it is stored somewhere secure before continuing.',
         [
           { text: 'Not yet', style: 'cancel' },
-          { text: "Yes, I've written it down", onPress: () => setup('Primary Wallet', '0xA1b2...C3d4') },
+          { text: "Yes, I've written it down", onPress: () => nav.navigate('WalletName' as any) },
         ],
       );
     } else {
-      setup('Primary Wallet', '0xA1b2...C3d4');
+      nav.navigate('WalletName' as any);
     }
   };
 

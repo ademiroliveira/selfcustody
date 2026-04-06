@@ -30,8 +30,16 @@ export default function ChatInput({ onSend, disabled }: Props) {
         returnKeyType="send"
         onSubmitEditing={handleSend}
         editable={!disabled}
+        accessibilityLabel="Message input"
+        accessibilityHint="Ask a question about your portfolio"
       />
-      <TouchableOpacity style={[styles.sendBtn, !canSend && styles.sendDisabled]} onPress={handleSend} disabled={!canSend}>
+      <TouchableOpacity
+        style={[styles.sendBtn, !canSend && styles.sendDisabled]}
+        onPress={handleSend}
+        disabled={!canSend}
+        accessibilityRole="button"
+        accessibilityLabel="Send message"
+      >
         <Text style={styles.sendText}>↑</Text>
       </TouchableOpacity>
     </View>

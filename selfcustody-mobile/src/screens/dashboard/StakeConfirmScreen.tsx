@@ -82,10 +82,10 @@ export default function StakeConfirmScreen() {
         </View>
 
         <View style={styles.actions}>
-          <Button onPress={handleGoToEarn} style={styles.primaryBtn}>
+          <Button onPress={handleGoToEarn} style={styles.primaryBtn} accessibilityLabel="Go to Earn Hub" accessibilityRole="button">
             Go to Earn Hub
           </Button>
-          <Button variant="outline" onPress={handleBackToPortfolio} style={styles.secondaryBtn}>
+          <Button variant="outline" onPress={handleBackToPortfolio} style={styles.secondaryBtn} accessibilityLabel="Back to Portfolio" accessibilityRole="button">
             Back to Portfolio
           </Button>
         </View>

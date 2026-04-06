@@ -72,6 +72,8 @@ export default function EarnHubScreen() {
             <Button
               onPress={() => handleStake('sol')}
               style={styles.stakeBtn}
+              accessibilityLabel={`Start staking Solana, ${solConfig.apy}% APY (annual percentage yield)`}
+              accessibilityRole="button"
             >
               Start Staking SOL
             </Button>
@@ -83,7 +85,12 @@ export default function EarnHubScreen() {
         {/* ETH row */}
         <Card>
           <Card.Body>
-            <TouchableOpacity style={styles.compactRow} onPress={() => handleStake('eth')}>
+            <TouchableOpacity
+              style={styles.compactRow}
+              onPress={() => handleStake('eth')}
+              accessibilityRole="button"
+              accessibilityLabel={`Ethereum staking via ${ethConfig.protocol}, ${ethConfig.apy}% APY (annual percentage yield)`}
+            >
               <View style={[styles.assetIconSm, { backgroundColor: '#627EEA22' }]}>
                 <Text style={[styles.iconTextSm, { color: '#627EEA' }]}>E</Text>
               </View>
@@ -102,7 +109,12 @@ export default function EarnHubScreen() {
         {/* AVAX row */}
         <Card>
           <Card.Body>
-            <TouchableOpacity style={styles.compactRow} onPress={() => handleStake('avax')}>
+            <TouchableOpacity
+              style={styles.compactRow}
+              onPress={() => handleStake('avax')}
+              accessibilityRole="button"
+              accessibilityLabel={`Avalanche staking via ${avaxConfig.protocol}, ${avaxConfig.apy}% APY (annual percentage yield)`}
+            >
               <View style={[styles.assetIconSm, { backgroundColor: '#E8414222' }]}>
                 <Text style={[styles.iconTextSm, { color: '#E84142' }]}>A</Text>
               </View>

@@ -76,6 +76,7 @@ export default function StakeAmountScreen() {
                   placeholderTextColor={colors.text.tertiary}
                   keyboardType="decimal-pad"
                   returnKeyType="done"
+                  accessibilityLabel={`Stake amount in ${asset.symbol}`}
                 />
                 <Text style={styles.symbolLabel}>{asset.symbol}</Text>
               </View>
@@ -86,7 +87,12 @@ export default function StakeAmountScreen() {
                   : ' '}
               </Text>
 
-              <TouchableOpacity style={styles.maxBtn} onPress={handleMax}>
+              <TouchableOpacity
+                style={styles.maxBtn}
+                onPress={handleMax}
+                accessibilityRole="button"
+                accessibilityLabel="Set maximum stakeable amount"
+              >
                 <Text style={styles.maxBtnText}>MAX</Text>
               </TouchableOpacity>
             </Card.Body>
@@ -135,6 +141,8 @@ export default function StakeAmountScreen() {
             onPress={handleContinue}
             disabled={!isValid}
             style={[styles.continueBtn, !isValid && styles.continueBtnDisabled]}
+            accessibilityLabel="Continue to stake review"
+            accessibilityRole="button"
           >
             Continue
           </Button>

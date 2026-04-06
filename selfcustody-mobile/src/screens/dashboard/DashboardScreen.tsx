@@ -5,6 +5,7 @@ import type { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import type { DashboardStackParams } from '../../navigation/navigationTypes';
 import { usePortfolioStore } from '../../store/portfolioStore';
 import { useAgentStore } from '../../store/agentStore';
+import { useWalletStore } from '../../store/walletStore';
 import { useCustodyHealth } from '../../hooks/useCustodyHealth';
 import { useAgentEvents } from '../../hooks/useAgentEvents';
 import { useNewsDigest } from '../../hooks/useNewsDigest';
@@ -24,6 +25,7 @@ export default function DashboardScreen() {
   const nav = useNavigation<Nav>();
   const portfolio = usePortfolioStore((s) => s.portfolio);
   const agents = useAgentStore((s) => s.agents);
+  const walletName = useWalletStore((s) => s.walletName);
   const custody = useCustodyHealth();
   const { data: news } = useNewsDigest();
   useAgentEvents();
@@ -40,7 +42,7 @@ export default function DashboardScreen() {
       <ScrollView style={styles.scroll} contentContainerStyle={styles.content} showsVerticalScrollIndicator={false}>
         <View style={styles.header}>
           <Text style={styles.greeting}>Good morning</Text>
-          <Text style={styles.walletName}>{portfolio.name}</Text>
+          <Text style={styles.walletName}>{walletName || portfolio.name}</Text>
         </View>
 
         <PortfolioSummaryCard

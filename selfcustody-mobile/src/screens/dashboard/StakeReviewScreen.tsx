@@ -115,11 +115,11 @@ export default function StakeReviewScreen() {
           </Text>
         </View>
 
-        <Button onPress={handleConfirm} style={styles.confirmBtn}>
+        <Button onPress={handleConfirm} style={styles.confirmBtn} accessibilityLabel="Confirm and stake" accessibilityRole="button">
           Confirm & Stake
         </Button>
 
-        <Button variant="outline" onPress={() => nav.goBack()} style={styles.backBtn}>
+        <Button variant="outline" onPress={() => nav.goBack()} style={styles.backBtn} accessibilityLabel="Go back to amount entry" accessibilityRole="button">
           Go Back
         </Button>
       </ScrollView>

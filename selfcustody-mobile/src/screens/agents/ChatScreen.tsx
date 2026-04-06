@@ -71,7 +71,7 @@ export default function ChatScreen() {
           <Text style={styles.quickLabel}>Quick questions</Text>
           <View style={styles.chips}>
             {QUICK_PROMPTS.map((prompt) => (
-              <TouchableOpacity key={prompt} style={styles.chip} onPress={() => handleSend(prompt)}>
+              <TouchableOpacity key={prompt} style={styles.chip} onPress={() => handleSend(prompt)} accessibilityRole="button" accessibilityLabel={prompt}>
                 <Text style={styles.chipText}>{prompt}</Text>
               </TouchableOpacity>
             ))}

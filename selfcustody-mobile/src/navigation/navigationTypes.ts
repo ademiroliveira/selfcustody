@@ -4,6 +4,7 @@ export type OnboardingStackParams = {
   Welcome: undefined;
   SecurityPrimer: undefined;
   SeedPhrase: undefined;
+  WalletName: undefined;
   VerifySeed: undefined;
   WalletReady: undefined;
 };

@@ -85,16 +85,26 @@ export default function AssetDetailScreen() {
             variant="outline"
             onPress={() => Alert.alert('Send — Coming Soon', 'Live transaction sending is coming in the next release.', [{ text: 'OK' }])}
             style={styles.actionBtn}
+            accessibilityLabel={`Send ${asset.symbol}`}
+            accessibilityRole="button"
           >
             Send
           </Button>
-          <Button variant="outline" onPress={() => setReceiveVisible(true)} style={styles.actionBtn}>
+          <Button
+            variant="outline"
+            onPress={() => setReceiveVisible(true)}
+            style={styles.actionBtn}
+            accessibilityLabel={`Receive ${asset.symbol}`}
+            accessibilityRole="button"
+          >
             Receive
           </Button>
           <Button
             variant="outline"
             onPress={() => Alert.alert('Swap — Coming Soon', 'Token swaps are coming in the next release.', [{ text: 'OK' }])}
             style={styles.actionBtn}
+            accessibilityLabel={`Swap ${asset.symbol}`}
+            accessibilityRole="button"
           >
             Swap
           </Button>
@@ -103,6 +113,8 @@ export default function AssetDetailScreen() {
               variant="outline"
               onPress={() => nav.navigate('StakeFlow', { screen: 'StakeAmount', params: { assetId: asset.id } })}
               style={styles.actionBtn}
+              accessibilityLabel={`Stake ${asset.symbol}`}
+              accessibilityRole="button"
             >
               Stake
             </Button>
@@ -111,7 +123,7 @@ export default function AssetDetailScreen() {
       </ScrollView>
 
       <Modal visible={receiveVisible} transparent animationType="slide" onRequestClose={() => setReceiveVisible(false)}>
-        <Pressable style={styles.modalOverlay} onPress={() => setReceiveVisible(false)}>
+        <Pressable style={styles.modalOverlay} onPress={() => setReceiveVisible(false)} accessibilityLabel="Close receive dialog" accessibilityRole="button">
           <Pressable style={styles.modalSheet} onPress={() => {}}>
             <Card>
               <Card.Header>

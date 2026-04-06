@@ -5,6 +5,7 @@ import { useWalletStore } from '../store/walletStore';
 import MainTabNavigator from './MainTabNavigator';
 import WelcomeScreen from '../screens/onboarding/WelcomeScreen';
 import SeedPhraseScreen from '../screens/onboarding/SeedPhraseScreen';
+import WalletNameScreen from '../screens/onboarding/WalletNameScreen';
 import StakeFlowNavigator from './StakeFlowNavigator';
 import { colors } from '../theme';
 
@@ -21,6 +22,11 @@ export default function RootNavigator() {
             name="SeedPhrase"
             component={SeedPhraseScreen}
             options={{ headerShown: true, title: 'Recovery Phrase', headerStyle: { backgroundColor: '#ffffff' }, headerTintColor: colors.text.primary }}
+          />
+          <Stack.Screen
+            name="WalletName"
+            component={WalletNameScreen}
+            options={{ headerShown: true, title: 'Name Your Wallet', headerStyle: { backgroundColor: '#ffffff' }, headerTintColor: colors.text.primary }}
           />
         </>
       ) : (

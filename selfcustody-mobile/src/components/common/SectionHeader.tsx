@@ -13,7 +13,7 @@ export default function SectionHeader({ title, action, onAction }: SectionHeader
     <View style={styles.row}>
       <Text style={styles.title}>{title}</Text>
       {action && (
-        <TouchableOpacity onPress={onAction}>
+        <TouchableOpacity onPress={onAction} accessibilityRole="button" accessibilityLabel={action}>
           <Text style={styles.action}>{action}</Text>
         </TouchableOpacity>
       )}
