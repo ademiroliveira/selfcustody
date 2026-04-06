@@ -20,6 +20,7 @@ export default function AssetDetailScreen() {
   const route = useRoute<RouteType>();
   const nav = useNavigation<NativeStackNavigationProp<RootStackParams>>();
   const portfolio = usePortfolioStore((s) => s.portfolio);
+  const stakedPositions = usePortfolioStore((s) => s.stakedPositions);
   const allActions = useAgentStore((s) => s.allActions);
   const primaryAddress = useWalletStore((s) => s.primaryAddress);
   const [receiveVisible, setReceiveVisible] = React.useState(false);
@@ -30,6 +31,7 @@ export default function AssetDetailScreen() {
   const { asset, priceUSD, price24hChangePct, balance, balanceUSD, costBasis, unrealizedPnL, unrealizedPnLPct, priceHistory } = position;
   const relatedActions = allActions.filter((a) => a.payload && (a.payload.sellAsset === asset.symbol || a.payload.buyAsset === asset.symbol));
   const isStakeable = STAKEABLE_ASSET_IDS.includes(asset.id);
+  const stakedPos = stakedPositions[asset.id];
 
   return (
     <SafeAreaView style={styles.safe}>
@@ -70,6 +72,28 @@ export default function AssetDetailScreen() {
             </View>
           </Card.Body>
         </Card>
+
+        {stakedPos && (
+          <Card>
+            <Card.Body style={styles.cardBody}>
+              <SectionHeader title="Staked Position" />
+              <View style={styles.statRow}>
+                <Text style={styles.statLabel}>Protocol</Text>
+                <Text style={styles.statValue}>{stakedPos.protocol}</Text>
+              </View>
+              <View style={styles.statRow}>
+                <Text style={styles.statLabel}>Amount staked</Text>
+                <Text style={[styles.statValue, { color: colors.accent.green }]}>
+                  {stakedPos.amount.toLocaleString(undefined, { maximumFractionDigits: 4 })} {asset.symbol}
+                </Text>
+              </View>
+              <View style={[styles.statRow, styles.lastRow]}>
+                <Text style={styles.statLabel}>You received</Text>
+                <Text style={styles.statValue}>{stakedPos.receiptToken}</Text>
+              </View>
+            </Card.Body>
+          </Card>
+        )}
 
         {relatedActions.length > 0 && (
           <Card>

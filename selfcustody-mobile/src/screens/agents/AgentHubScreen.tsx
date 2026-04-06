@@ -2,7 +2,8 @@ import React from 'react';
 import { View, Text, StyleSheet, SafeAreaView, ScrollView } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import type { NativeStackNavigationProp } from '@react-navigation/native-stack';
-import type { AgentStackParams } from '../../navigation/navigationTypes';
+import type { AgentStackParams, RootStackParams } from '../../navigation/navigationTypes';
+import type { AgentAction } from '../../types/agents';
 import { useAgentStore } from '../../store/agentStore';
 import { useApprovalQueue } from '../../hooks/useApprovalQueue';
 import { useNewsDigest } from '../../hooks/useNewsDigest';
@@ -14,14 +15,27 @@ import SectionHeader from '../../components/common/SectionHeader';
 import { colors } from '../../theme';
 
 type Nav = NativeStackNavigationProp<AgentStackParams, 'AgentHub'>;
+type RootNav = NativeStackNavigationProp<RootStackParams>;
 
 export default function AgentHubScreen() {
   const nav = useNavigation<Nav>();
+  const rootNav = useNavigation<RootNav>();
   const agents = useAgentStore((s) => s.agents);
   const approveAction = useAgentStore((s) => s.approveAction);
   const rejectAction = useAgentStore((s) => s.rejectAction);
   const approvalQueue = useApprovalQueue();
   const { data: news } = useNewsDigest();
+
+  const handleApprove = (action: AgentAction) => {
+    approveAction(action.id);
+    const stakeAsset = action.payload?.stakeAsset as string | undefined;
+    if (stakeAsset) {
+      rootNav.navigate('StakeFlow', {
+        screen: 'StakeAmount',
+        params: { assetId: stakeAsset.toLowerCase() },
+      });
+    }
+  };
 
   return (
     <SafeAreaView style={styles.safe}>
@@ -48,7 +62,7 @@ export default function AgentHubScreen() {
               <SuggestionCard
                 key={action.id}
                 action={action}
-                onApprove={() => approveAction(action.id)}
+                onApprove={() => handleApprove(action)}
                 onReject={() => rejectAction(action.id)}
                 onDetails={() => nav.navigate('ApprovalDetail', { actionId: action.id })}
               />

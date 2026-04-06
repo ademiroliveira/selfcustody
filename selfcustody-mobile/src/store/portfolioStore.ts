@@ -2,13 +2,32 @@ import { create } from 'zustand';
 import type { Portfolio } from '../types/portfolio';
 import { MOCK_PORTFOLIO } from '../mocks/portfolio.mock';
 
+export interface StakedPosition {
+  amount: number;
+  protocol: string;
+  receiptToken: string;
+  stakedAt: number;
+}
+
 interface PortfolioState {
   portfolio: Portfolio;
+  stakedPositions: Record<string, StakedPosition>;
   updatePrice: (assetId: string, newPrice: number) => void;
+  stake: (assetId: string, amount: number, protocol: string, receiptToken: string) => void;
 }
 
 export const usePortfolioStore = create<PortfolioState>((set) => ({
   portfolio: MOCK_PORTFOLIO,
+  stakedPositions: {},
+
+  stake: (assetId, amount, protocol, receiptToken) =>
+    set((state) => ({
+      stakedPositions: {
+        ...state.stakedPositions,
+        [assetId]: { amount, protocol, receiptToken, stakedAt: Date.now() },
+      },
+    })),
+
   updatePrice: (assetId, newPrice) =>
     set((state) => {
       const positions = state.portfolio.positions.map((pos) => {

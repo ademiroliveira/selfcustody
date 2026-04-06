@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useRef } from 'react';
 import { View, Text, StyleSheet, SafeAreaView } from 'react-native';
 import { useRoute, useNavigation } from '@react-navigation/native';
 import type { RouteProp } from '@react-navigation/native';
@@ -16,6 +16,7 @@ export default function StakeConfirmScreen() {
   const route = useRoute<RouteType>();
   const nav = useNavigation<NavType>();
   const portfolio = usePortfolioStore((s) => s.portfolio);
+  const stakeRecord = usePortfolioStore((s) => s.stake);
 
   const { assetId, amount } = route.params;
   const position = portfolio.positions.find((p) => p.asset.id === assetId);
@@ -27,6 +28,14 @@ export default function StakeConfirmScreen() {
 
   const amountUSD = amount * priceUSD;
   const estimatedYearlyUSD = amountUSD * (config.apy / 100);
+
+  const staked = useRef(false);
+  useEffect(() => {
+    if (!staked.current) {
+      staked.current = true;
+      stakeRecord(assetId, amount, config.protocol, config.receiptToken);
+    }
+  }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
   const handleGoToEarn = () => {
     // Dismiss the modal stack and navigate to the Earn tab

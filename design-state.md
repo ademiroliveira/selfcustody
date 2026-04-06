@@ -235,7 +235,7 @@ The staking flow is conceptually sound and honours the brief's core promise — 
 
 ## Design Debt Register
 
-_Items: 13 | Oldest: 2026-03-27_
+_Items: 13 | Closed: 7 | Open: 6 | Oldest: 2026-03-27_
 
 | ID | Date | Source | Severity | What | Who is affected | Suggested fix | Status |
 |----|------|--------|----------|------|----------------|---------------|--------|
@@ -245,8 +245,8 @@ _Items: 13 | Oldest: 2026-03-27_
 | DD-004 | 2026-03-27 | accessibility-reviewer | Minor | No accessibilityLabel on AssetRow, AgentCard, and other custom touchables | Screen reader users — VoiceOver announces nothing useful | Add accessibilityLabel and accessibilityRole to all interactive elements | **Closed** (2026-04-06) |
 | DD-005 | 2026-03-27 | accessibility-reviewer | Minor | "Sharpe ratio" jargon appears in agent reasoning | Non-technical investors, cognitive accessibility | Replace or gloss jargon in agent copy — "risk-adjusted return score (Sharpe ratio)" | **Closed** (2026-04-06) |
 | DD-006 | 2026-04-06 | heuristic-evaluator | **Major** | StakeAmount shows no inline error when amount is invalid — Continue disables silently | All stakers — confusing, no recovery path | Show inline error text below input: "Min: 0.01 SOL" / "Max available: X SOL" | **Closed** (2026-04-06) |
-| DD-007 | 2026-04-06 | design-strategist | **Critical** | Agent action-04 (SOL staking suggestion) does not navigate to StakeFlow — entry point is broken | All users who receive staking suggestions from Portfolio Intelligence agent | Wire approve/action tap on staking SuggestionCard to `navigate('StakeFlow', ...)` | Open |
-| DD-008 | 2026-04-06 | design-strategist | **Critical** | Staked assets are not visually indicated in Portfolio — "custody visibility" lost post-stake | All users who stake — assets appear to vanish | Add [STAKED] badge or dedicated staked section in Dashboard + AssetDetailScreen | Open |
+| DD-007 | 2026-04-06 | design-strategist | **Critical** | Agent action-04 (SOL staking suggestion) does not navigate to StakeFlow — entry point is broken | All users who receive staking suggestions from Portfolio Intelligence agent | Wire approve/action tap on staking SuggestionCard to `navigate('StakeFlow', ...)` | **Closed** (2026-04-06) |
+| DD-008 | 2026-04-06 | design-strategist | **Critical** | Staked assets are not visually indicated in Portfolio — "custody visibility" lost post-stake | All users who stake — assets appear to vanish | Add [STAKED] badge or dedicated staked section in Dashboard + AssetDetailScreen | **Closed** (2026-04-06) |
 | DD-009 | 2026-04-06 | design-strategist | Major | Liquidity guardrail is amber warning only — user can stake 100% and trap themselves with no gas | Power users who enter near-max amounts | Convert to hard block with override dialog: "You'll have only X SOL left. Continue?" | Open |
 | DD-010 | 2026-04-06 | design-critic | Minor | APY badge style inconsistent — featured SOL card uses green badge; ETH/AVAX compact rows use plain text | All users — inconsistent signal hierarchy | Apply consistent APY treatment across featured + compact rows | Open |
 | DD-011 | 2026-04-06 | design-critic | Minor | Balance shows 6 decimal places (e.g., 52.300000 SOL) — excessive precision for most users | All users — readability issue | Cap display at 4 decimal places; offer expand-to-full on tap | Open |
@@ -257,9 +257,9 @@ _Items: 13 | Oldest: 2026-03-27_
 
 ## Next Steps
 
-**Pre-demo priorities (critical — do before any investor session):**
-1. **DD-007** — Fix agent action entry point → StakeFlow navigation _(still open)_
-2. **DD-008** — Add staked asset visibility to Portfolio (badge or staked section) _(still open)_
+**Pre-demo priorities — all critical items now closed:**
+1. ~~DD-007~~ — ✓ Closed: staking suggestion approve → navigates to StakeFlow
+2. ~~DD-008~~ — ✓ Closed: STAKED chip on AssetRow + Staked Position card in AssetDetailScreen
 3. ~~DD-006~~ — ✓ Closed: inline validation error added to StakeAmountScreen
 
 **v0.2 priorities (post-demo):**
