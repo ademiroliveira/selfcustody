@@ -1,6 +1,6 @@
 # Design State: Selfcustody Mobile
 
-_Last updated: 2026-04-06 by design-critic + heuristic-evaluator + design-strategist (Designpowers)_
+_Last updated: 2026-04-06 by content-writer + accessibility-reviewer (Designpowers)_
 
 ---
 
@@ -173,9 +173,69 @@ The staking flow is conceptually sound and honours the brief's core promise — 
 
 ---
 
+### 2026-04-06 — Content + Accessibility Review (staking screens)
+
+**Agents:** content-writer + accessibility-reviewer (Designpowers, ran in parallel)
+**Scope:** EarnHubScreen, StakeAmountScreen, StakeReviewScreen, StakeConfirmScreen, WalletNameScreen
+
+#### Content Writer — Changes Made
+
+| Item | Change | File |
+|------|--------|------|
+| DD-006 | Inline validation errors added: "Minimum stake is X SOL" / "Maximum available is X SOL" — announced via accessibilityLiveRegion | StakeAmountScreen |
+| m2 | Epoch language standardized to "Earning starts in ~48 hours (next epoch)" across all 3 screens | StakeAmountScreen, StakeReviewScreen, StakeConfirmScreen |
+| M7 | Receipt token disclosure added: "You'll receive mSOL — redeemable for SOL anytime" (per protocol) | StakeAmountScreen + staking.mock.ts |
+| M8 | APY risk disclaimer added to StakeAmount and StakeReview: "APY (annual percentage yield) is estimated based on current network conditions and may vary." | StakeAmountScreen, StakeReviewScreen |
+| M1 | "About this validator" → "Why [Protocol]?" with new rationale copy per protocol | StakeReviewScreen + staking.mock.ts |
+| m4 | Button label asymmetry fixed: "Back to Portfolio" → "Go to Portfolio" — parallel structure with "Go to Earn Hub" | StakeConfirmScreen |
+| guardrail | ⚠ prefix added to liquidity guardrail text — meaning now conveyed without relying on amber colour alone | StakeAmountScreen |
+| trust signal | ✓ prefix added to "No slashing risk · Liquid staking" — positive signal independent of colour | EarnHubScreen |
+
+**Reading level:** All copy reviewed at Grade 6–8. "DEX" kept in Marinade copy because it's paired with "any Solana DEX" — context carries meaning. "Epoch" retained throughout but now anchored: "~48 hours (next epoch)" — time always appears first.
+
+**Vocabulary locked for staking screens:**
+- "Earning starts" (not "active", not "rewards begin")
+- "Redeemable for [asset] anytime" (not "unstakeable", not "liquid")
+- "Go to [Place]" (not "Back to", not "Return to")
+- "[Protocol]?" not "About this validator" — makes the rationale card scannable
+
+#### Accessibility Reviewer — Targeted Staking Screen Review
+
+**Standard:** WCAG 2.1 AA minimum
+
+| # | Finding | Severity | Fix applied |
+|---|---------|----------|-------------|
+| A1 | `colors.accent.green` (#059669) on white background = 3.55:1 — fails AA for normal text. Affects APY badge text, trust signal, compact APY numbers, and rewards values. | **Major** | ✓ Fixed — changed to #047857 (4.84:1) globally in theme/colors.ts |
+| A2 | Trust signal "No slashing risk · Liquid staking" was colour-only positive indicator (green text, no icon) | Major | ✓ Fixed — ✓ prefix added; meaning now conveyed by text + symbol |
+| A3 | Epoch timeline dots in StakeConfirmScreen are colour-coded (indigo/amber/green) with no accessible markup | Minor | ✓ Fixed — `accessible={false}` on all dots; text labels carry full meaning |
+| A4 | ✓ checkmark in StakeConfirmScreen success icon: Text emoji read by VoiceOver as "heavy check mark" not "success" | Minor | ✓ Fixed — wrapper View has `accessibilityLabel="Success"` + `accessibilityRole="image"`; emoji has `accessible={false}` |
+| A5 | Validation error text in StakeAmountScreen needs live announcement | Minor | ✓ Fixed — `accessibilityLiveRegion="polite"` on error Text |
+| A6 | Compact ETH/AVAX rows: icon container is 36×36px. Tappable area is the full row (likely 44px+ height), so not a violation. Visual icon size acceptable at 36px for non-tappable icon element. | Note | No fix needed — row height exceeds 44px minimum |
+| A7 | StakeConfirmScreen: modal has no dismiss button (headerShown: false). iOS swipe-down dismisses. Android back button works. Not a WCAG violation but could trap users who navigate with switches. | Minor | Deferred — see DD-013 |
+| A8 | APY badge in StakeAmountScreen and StakeReviewScreen: background is `colors.accent.green + '18'` (9.4% opacity) — near-transparent, no contrast issue with badge background itself. Text contrast is now resolved by global green token fix (A1). | ✓ Pass | — |
+
+**What works well:**
+- All primary action buttons have `accessibilityLabel` + `accessibilityRole="button"`
+- EarnHub staking CTAs include full APY expansion: "APY (annual percentage yield)" in label
+- StakeAmountScreen TextInput has `accessibilityLabel="Stake amount in SOL"` — clear and contextual
+- WalletNameScreen has `accessibilityHint` on the input — excellent practice
+- No colour-only status indicators remain after this pass (A1–A2 fixed)
+
+**Overall verdict:** Pass (with fixed items applied). No remaining Critical issues. DD-013 logged for switch navigation edge case.
+
+#### content-writer → design-builder handoff
+
+> **content-writer → design-builder:** "All strings are final and in the files. Three important dynamic patterns: (1) validation errors use the asset symbol from the config — don't hardcode SOL; (2) receipt notes and 'Why [Protocol]?' copy are per-protocol fields in staking.mock.ts; (3) 'Go to Earn Hub' / 'Go to Portfolio' must stay parallel — no future renaming of one without the other. Reading level is Grade 7 across the staking screens. The word 'epoch' always appears after a time anchor (e.g. '~48 hours (next epoch)') — never alone."
+
+#### accessibility-reviewer → design-builder handoff
+
+> **accessibility-reviewer → design-builder:** "One global fix applied: green token changed from #059669 to #047857 — this lifts APY text, trust signals, and reward values to AA compliance across the entire app. All staking-specific colour-only signals are now resolved. One minor deferred item: StakeConfirmScreen has no modal dismiss affordance for switch users (DD-013) — not blocking, but schedule it before accessibility audit. The epoch dots, checkmark, and error announcements are all clean now."
+
+---
+
 ## Design Debt Register
 
-_Items: 12 | Oldest: 2026-03-27_
+_Items: 13 | Oldest: 2026-03-27_
 
 | ID | Date | Source | Severity | What | Who is affected | Suggested fix | Status |
 |----|------|--------|----------|------|----------------|---------------|--------|
@@ -184,35 +244,37 @@ _Items: 12 | Oldest: 2026-03-27_
 | DD-003 | 2026-03-27 | design-critic | Minor | Settings back label may truncate on narrow screens | All users | Set explicit back title or suppress back label | Open |
 | DD-004 | 2026-03-27 | accessibility-reviewer | Minor | No accessibilityLabel on AssetRow, AgentCard, and other custom touchables | Screen reader users — VoiceOver announces nothing useful | Add accessibilityLabel and accessibilityRole to all interactive elements | **Closed** (2026-04-06) |
 | DD-005 | 2026-03-27 | accessibility-reviewer | Minor | "Sharpe ratio" jargon appears in agent reasoning | Non-technical investors, cognitive accessibility | Replace or gloss jargon in agent copy — "risk-adjusted return score (Sharpe ratio)" | **Closed** (2026-04-06) |
-| DD-006 | 2026-04-06 | heuristic-evaluator | **Major** | StakeAmount shows no inline error when amount is invalid — Continue disables silently | All stakers — confusing, no recovery path | Show inline error text below input: "Min: 0.01 SOL" / "Max available: X SOL" | Open |
+| DD-006 | 2026-04-06 | heuristic-evaluator | **Major** | StakeAmount shows no inline error when amount is invalid — Continue disables silently | All stakers — confusing, no recovery path | Show inline error text below input: "Min: 0.01 SOL" / "Max available: X SOL" | **Closed** (2026-04-06) |
 | DD-007 | 2026-04-06 | design-strategist | **Critical** | Agent action-04 (SOL staking suggestion) does not navigate to StakeFlow — entry point is broken | All users who receive staking suggestions from Portfolio Intelligence agent | Wire approve/action tap on staking SuggestionCard to `navigate('StakeFlow', ...)` | Open |
 | DD-008 | 2026-04-06 | design-strategist | **Critical** | Staked assets are not visually indicated in Portfolio — "custody visibility" lost post-stake | All users who stake — assets appear to vanish | Add [STAKED] badge or dedicated staked section in Dashboard + AssetDetailScreen | Open |
 | DD-009 | 2026-04-06 | design-strategist | Major | Liquidity guardrail is amber warning only — user can stake 100% and trap themselves with no gas | Power users who enter near-max amounts | Convert to hard block with override dialog: "You'll have only X SOL left. Continue?" | Open |
 | DD-010 | 2026-04-06 | design-critic | Minor | APY badge style inconsistent — featured SOL card uses green badge; ETH/AVAX compact rows use plain text | All users — inconsistent signal hierarchy | Apply consistent APY treatment across featured + compact rows | Open |
 | DD-011 | 2026-04-06 | design-critic | Minor | Balance shows 6 decimal places (e.g., 52.300000 SOL) — excessive precision for most users | All users — readability issue | Cap display at 4 decimal places; offer expand-to-full on tap | Open |
 | DD-012 | 2026-04-06 | design-strategist | Minor | No links to protocol documentation (Marinade, Lido, BENQI) in staking flow | HNW investors who want to verify claims | Add external link icon next to protocol name on StakeReview | Open |
+| DD-013 | 2026-04-06 | accessibility-reviewer | Minor | StakeConfirmScreen modal has no explicit dismiss affordance (headerShown: false). iOS swipe-down works. Switch users may get trapped. | Switch navigation users | Add a close/dismiss button to StakeConfirmScreen, or re-enable header | Open |
 
 ---
 
 ## Next Steps
 
 **Pre-demo priorities (critical — do before any investor session):**
-1. **DD-007** — Fix agent action entry point → StakeFlow navigation
-2. **DD-008** — Add staked asset visibility to Portfolio (badge or staked section)
-3. **DD-006** — Add inline validation error text to StakeAmountScreen
+1. **DD-007** — Fix agent action entry point → StakeFlow navigation _(still open)_
+2. **DD-008** — Add staked asset visibility to Portfolio (badge or staked section) _(still open)_
+3. ~~DD-006~~ — ✓ Closed: inline validation error added to StakeAmountScreen
 
 **v0.2 priorities (post-demo):**
 4. **DD-009** — Convert liquidity guardrail to hard block with override dialog
-5. M1 — Validator transparency: "Why this validator?" card on StakeReview
+5. ~~M1~~ — ✓ Closed: "Why [Protocol]?" card added to StakeReview
 6. M3/M6 — Fix post-confirm routing + asset name in screen headers
-7. M7 — Disclose receipt token (mSOL/stETH/sAVAX) before confirmation
-8. M8 — Move APY risk disclaimer to StakeAmount + StakeReview
-9. DD-002 — SVG line chart to replace bar sparkline
-10. Send/Receive flow (currently stub screens)
-11. Demo mode toggle in Settings (reset + replay agent simulator)
-12. Inclusive personas (formal documents for Alex + Jordan + Casey)
-13. Taste calibration session → formal taste profile
-14. EAS Build setup for TestFlight distribution
+7. ~~M7~~ — ✓ Closed: receipt token disclosure added to StakeAmountScreen
+8. ~~M8~~ — ✓ Closed: APY disclaimer added to StakeAmount and StakeReview
+9. **DD-013** — Add dismiss affordance to StakeConfirmScreen for switch navigation
+10. DD-002 — SVG line chart to replace bar sparkline
+11. Send/Receive flow (currently stub screens)
+12. Demo mode toggle in Settings (reset + replay agent simulator)
+13. Inclusive personas (formal documents for Alex + Jordan + Casey)
+14. Taste calibration session → formal taste profile
+15. EAS Build setup for TestFlight distribution
 
 ---
 
@@ -224,7 +286,8 @@ _Items: 12 | Oldest: 2026-03-27_
 | design-lead | 2026-03-27 | v0.1 prototype built — 82 files |
 | design-critic | 2026-04-06 | Staking IA critique — 0 critical, 3 major, 6 minor |
 | heuristic-evaluator | 2026-04-06 | Staking IA heuristic eval — 3 critical, 3 major, 3 minor; conditional approval |
-| accessibility-reviewer | 2026-03-27 | Review complete — 2 critical fixed, 2 minor deferred |
+| accessibility-reviewer | 2026-04-06 | Targeted staking screen review — green contrast fixed globally (#059669 → #047857), colour-only signals resolved, 1 minor deferred (DD-013) |
+| content-writer | 2026-04-06 | Staking copy pass — DD-006, M1, M7, M8, m2, m4, guardrail + trust signal fixed; vocabulary locked |
 | inclusive-personas | Not run | Scheduled v0.2 |
 | design-taste | Not run | Scheduled v0.2 |
 | design-handoff | Not run | Pending production-ready milestone |

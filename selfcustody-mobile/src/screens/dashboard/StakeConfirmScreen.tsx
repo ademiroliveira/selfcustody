@@ -41,8 +41,13 @@ export default function StakeConfirmScreen() {
     <SafeAreaView style={styles.safe}>
       <View style={styles.content}>
         {/* Success icon */}
-        <View style={styles.iconWrap}>
-          <Text style={styles.checkmark}>✓</Text>
+        <View
+          style={styles.iconWrap}
+          accessible
+          accessibilityLabel="Success"
+          accessibilityRole="image"
+        >
+          <Text style={styles.checkmark} accessible={false}>✓</Text>
         </View>
 
         {/* Title */}
@@ -66,18 +71,18 @@ export default function StakeConfirmScreen() {
         <View style={styles.epochCard}>
           <Text style={styles.epochTitle}>Activation timeline</Text>
           <View style={styles.epochStep}>
-            <View style={[styles.stepDot, { backgroundColor: colors.accent.indigo }]} />
+            <View style={[styles.stepDot, { backgroundColor: colors.accent.indigo }]} accessible={false} />
             <Text style={styles.stepText}>Transaction submitted now</Text>
           </View>
-          <View style={styles.epochLine} />
+          <View style={styles.epochLine} accessible={false} />
           <View style={styles.epochStep}>
-            <View style={[styles.stepDot, { backgroundColor: colors.accent.amber }]} />
-            <Text style={styles.stepText}>Activating at next epoch boundary</Text>
+            <View style={[styles.stepDot, { backgroundColor: colors.accent.amber }]} accessible={false} />
+            <Text style={styles.stepText}>Activating — waits for next epoch</Text>
           </View>
-          <View style={styles.epochLine} />
+          <View style={styles.epochLine} accessible={false} />
           <View style={styles.epochStep}>
-            <View style={[styles.stepDot, { backgroundColor: colors.accent.green }]} />
-            <Text style={styles.stepText}>Active — earning rewards in ~48 hrs</Text>
+            <View style={[styles.stepDot, { backgroundColor: colors.accent.green }]} accessible={false} />
+            <Text style={styles.stepText}>Earning starts in ~48 hours</Text>
           </View>
         </View>
 
@@ -85,8 +90,8 @@ export default function StakeConfirmScreen() {
           <Button onPress={handleGoToEarn} style={styles.primaryBtn} accessibilityLabel="Go to Earn Hub" accessibilityRole="button">
             Go to Earn Hub
           </Button>
-          <Button variant="outline" onPress={handleBackToPortfolio} style={styles.secondaryBtn} accessibilityLabel="Back to Portfolio" accessibilityRole="button">
-            Back to Portfolio
+          <Button variant="outline" onPress={handleBackToPortfolio} style={styles.secondaryBtn} accessibilityLabel="Go to Portfolio" accessibilityRole="button">
+            Go to Portfolio
           </Button>
         </View>
       </View>

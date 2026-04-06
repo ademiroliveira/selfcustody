@@ -61,7 +61,9 @@ export default function EarnHubScreen() {
               <Text style={styles.infoValue}>{solConfig.validatorName}</Text>
             </View>
             <View style={styles.trustRow}>
-              <Text style={styles.trustSignal}>No slashing risk · Liquid staking</Text>
+              <Text style={styles.trustSignal} accessibilityLabel="No slashing risk · Liquid staking">
+                ✓ No slashing risk · Liquid staking
+              </Text>
             </View>
             <View style={[styles.infoRow, styles.lastRow]}>
               <Text style={styles.infoLabel}>Epoch timing</Text>

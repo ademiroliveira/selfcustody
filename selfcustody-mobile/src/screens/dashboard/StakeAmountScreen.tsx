@@ -35,6 +35,15 @@ export default function StakeAmountScreen() {
   const showLiquidityWarning = amountNum > 0 && wouldLeave < config.liquidityGuardToken;
   const isValid = amountNum >= config.minStakeToken && amountNum <= balance;
 
+  const hasInput = amountText.trim().length > 0 && amountNum > 0;
+  const validationError = hasInput
+    ? amountNum < config.minStakeToken
+      ? `Minimum stake is ${config.minStakeToken} ${asset.symbol}`
+      : amountNum > balance
+      ? `Maximum available is ${balance.toLocaleString(undefined, { maximumFractionDigits: 6 })} ${asset.symbol}`
+      : null
+    : null;
+
   const handleMax = () => {
     const safeMax = Math.max(0, balance - config.liquidityGuardToken);
     setAmountText(safeMax.toString());
@@ -98,11 +107,18 @@ export default function StakeAmountScreen() {
             </Card.Body>
           </Card>
 
+          {/* Inline validation error */}
+          {validationError && (
+            <Text style={styles.errorText} accessibilityRole="alert" accessibilityLiveRegion="polite">
+              {validationError}
+            </Text>
+          )}
+
           {/* Liquidity guardrail */}
           {showLiquidityWarning && (
             <View style={styles.guardrail}>
               <Text style={styles.guardrailText}>
-                Keep at least {config.liquidityGuardToken} {asset.symbol} for network fees
+                ⚠ Keep at least {config.liquidityGuardToken} {asset.symbol} for network fees
               </Text>
             </View>
           )}
@@ -135,7 +151,13 @@ export default function StakeAmountScreen() {
             </Card.Body>
           </Card>
 
-          <Text style={styles.epochNote}>Active in ~2 epochs · ~48 hours after staking</Text>
+          {/* Receipt token disclosure */}
+          <Text style={styles.receiptNote}>{config.receiptNote}</Text>
+
+          {/* APY disclaimer */}
+          <Text style={styles.apyDisclaimer}>
+            APY (annual percentage yield) is estimated based on current network conditions and may vary.
+          </Text>
 
           <Button
             onPress={handleContinue}
@@ -203,7 +225,9 @@ const styles = StyleSheet.create({
   infoValue: { color: colors.text.primary, fontSize: 14, fontWeight: '500', textAlign: 'right', flexShrink: 1, maxWidth: '60%' },
   apyBadge: { backgroundColor: colors.accent.green + '18', paddingHorizontal: 10, paddingVertical: 3, borderRadius: 10 },
   apyText: { color: colors.accent.green, fontSize: 13, fontWeight: '700' },
-  epochNote: { color: colors.text.tertiary, fontSize: 13, textAlign: 'center' },
+  errorText: { color: colors.accent.rose, fontSize: 13, textAlign: 'center', fontWeight: '500' },
+  receiptNote: { color: colors.text.secondary, fontSize: 13, textAlign: 'center' },
+  apyDisclaimer: { color: colors.text.tertiary, fontSize: 12, textAlign: 'center', lineHeight: 17 },
   continueBtn: { width: '100%' },
   continueBtnDisabled: { opacity: 0.4 },
 });

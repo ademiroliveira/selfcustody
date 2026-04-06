@@ -11,13 +11,13 @@ export const colors = {
     amber: '#D97706',
     rose: '#E11D48',
     sky: '#0284C7',
-    green: '#059669',
+    green: '#047857',
   },
   text: {
     primary: '#0f172a',
     secondary: '#64748b',
     tertiary: '#94a3b8',
-    positive: '#059669',
+    positive: '#047857',
     negative: '#E11D48',
   },
   agent: {

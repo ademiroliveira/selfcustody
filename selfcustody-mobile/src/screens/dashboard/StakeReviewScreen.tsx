@@ -83,7 +83,7 @@ export default function StakeReviewScreen() {
             </View>
             <View style={styles.statRow}>
               <Text style={styles.statLabel}>Activation timing</Text>
-              <Text style={styles.statValue}>Active next epoch · ~48 hrs</Text>
+              <Text style={styles.statValue}>Earning starts in ~48 hours (next epoch)</Text>
             </View>
             <View style={styles.statRow}>
               <Text style={styles.statLabel}>Est. yearly rewards</Text>
@@ -100,13 +100,18 @@ export default function StakeReviewScreen() {
           </Card.Body>
         </Card>
 
-        {/* Validator note */}
+        {/* Why this protocol */}
         <Card>
           <Card.Body>
-            <Text style={styles.validatorNoteTitle}>About this validator</Text>
-            <Text style={styles.validatorNote}>{config.validatorNote}</Text>
+            <Text style={styles.validatorNoteTitle}>Why {config.protocol}?</Text>
+            <Text style={styles.validatorNote}>{config.whyThisProtocol}</Text>
           </Card.Body>
         </Card>
+
+        {/* APY disclaimer */}
+        <Text style={styles.apyDisclaimer}>
+          APY (annual percentage yield) is estimated based on current network conditions and may vary.
+        </Text>
 
         {/* Demo disclaimer */}
         <View style={styles.disclaimer}>
@@ -154,6 +159,7 @@ const styles = StyleSheet.create({
   apyText: { color: colors.accent.green, fontSize: 13, fontWeight: '700' },
   validatorNoteTitle: { color: colors.text.primary, fontSize: 13, fontWeight: '600', marginBottom: 4 },
   validatorNote: { color: colors.text.secondary, fontSize: 13, lineHeight: 19 },
+  apyDisclaimer: { color: colors.text.tertiary, fontSize: 12, lineHeight: 17 },
   disclaimer: {
     backgroundColor: colors.accent.amber + '14',
     borderLeftWidth: 3,
