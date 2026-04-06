@@ -9,7 +9,13 @@ export default function NewsItem({ item }: Props) {
   const score = item.score ?? 0;
   const scoreColor = score > 0.85 ? colors.accent.green : score > 0.65 ? colors.accent.amber : colors.text.tertiary;
   return (
-    <TouchableOpacity style={styles.row} onPress={() => item.url && Linking.openURL(item.url)} activeOpacity={0.7}>
+    <TouchableOpacity
+      style={styles.row}
+      onPress={() => item.url && Linking.openURL(item.url)}
+      activeOpacity={0.7}
+      accessibilityRole="link"
+      accessibilityLabel={`${item.title} — ${item.source ?? 'News'}`}
+    >
       <View style={[styles.scoreBar, { backgroundColor: scoreColor + '33' }]}>
         <View style={[styles.scoreFill, { height: `${score * 100}%` as any, backgroundColor: scoreColor }]} />
       </View>

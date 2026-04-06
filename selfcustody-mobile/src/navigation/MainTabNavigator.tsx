@@ -5,6 +5,7 @@ import type { MainTabParams } from './navigationTypes';
 import DashboardStack from './DashboardStack';
 import AgentStack from './AgentStack';
 import ActivityStack from './ActivityStack';
+import EarnStack from './EarnStack';
 import SecurityStack from './SecurityStack';
 import { colors } from '../theme';
 import { useTotalPendingCount } from '../hooks/useApprovalQueue';
@@ -54,6 +55,11 @@ export default function MainTabNavigator() {
         name="Activity"
         component={ActivityStack}
         options={{ tabBarLabel: 'Activity', tabBarIcon: () => <TabIcon label="Activity" emoji="◷" /> }}
+      />
+      <Tab.Screen
+        name="Earn"
+        component={EarnStack}
+        options={{ tabBarLabel: 'Earn', tabBarIcon: () => <TabIcon label="Earn" emoji="◎" /> }}
       />
       <Tab.Screen
         name="SecurityTab"

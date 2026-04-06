@@ -4,7 +4,7 @@ export const MOCK_AGENTS: Agent[] = [
   {
     id: 'portfolio-intelligence',
     name: 'Portfolio Intelligence',
-    description: 'Monitors allocation drift, yield changes, and rebalancing opportunities.',
+    description: 'Monitors allocation drift, yield changes, and rebalancing opportunities (adjusting your asset mix).',
     status: 'idle',
     lastAction: 'Detected PENDLE allocation drift',
     lastActionAt: Date.now() - 1000 * 60 * 5,
@@ -53,11 +53,11 @@ export const MOCK_AGENT_ACTIONS: AgentAction[] = [
     title: 'PENDLE Overweight — Trim to Target',
     summary: 'PENDLE allocation grown to 36.2%, above 25% target. Suggest rebalancing.',
     reasoning:
-      'Your PENDLE position has appreciated 54% over 30 days and now represents 36.2% of your portfolio — well above your 25% target allocation. Concentration risk is elevated. Reducing to target improves your Sharpe ratio by an estimated +0.18 and frees capital to strengthen BTC and ETH positions.',
+      'Your PENDLE position has appreciated 54% over 30 days and now represents 36.2% of your portfolio — well above your 25% target allocation. Concentration risk is elevated. Reducing to target improves your risk-adjusted return score (Sharpe ratio) by an estimated +0.18 and frees capital to strengthen BTC and ETH positions.',
     evidence: [
       'PENDLE: 36.2% current allocation vs 25% target',
       'Position up 54.1% in 30 days — gains are real and significant',
-      'Estimated Sharpe improvement: +0.18 after rebalancing',
+      'Estimated risk-adjusted return improvement (Sharpe ratio +0.18) after rebalancing',
       'Suggested: sell 2,650 PENDLE (~$12,004) → buy 0.1755 BTC',
     ],
     suggestedAt: Date.now() - 1000 * 60 * 5,
@@ -98,9 +98,9 @@ export const MOCK_AGENT_ACTIONS: AgentAction[] = [
     agentId: 'portfolio-intelligence',
     type: 'info',
     title: 'ETH Staking Yield Declined',
-    summary: 'Lido staking yield dropped 3.8%→3.2% APR. Better alternatives available.',
+    summary: 'Lido staking yield dropped 3.8%→3.2% APR (annual percentage rate). Better alternatives available.',
     reasoning:
-      'Lido ETH staking yield has declined from 3.8% to 3.2% APR over the past 14 days, likely due to increased validator set size. Two alternatives offer higher current yields: Rocket Pool at 3.6% APR (decentralized, smaller validator network) and Frax ETH at 3.9% APR (protocol risk slightly higher).',
+      'Lido ETH staking yield has declined from 3.8% to 3.2% APR (annual percentage rate) over the past 14 days, likely due to increased validator set size. Two alternatives offer higher current yields: Rocket Pool at 3.6% APR (decentralized, smaller validator network) and Frax ETH at 3.9% APR (protocol risk slightly higher).',
     evidence: [
       'Lido current APR: 3.2% (was 3.8% 14 days ago)',
       'Rocket Pool APR: 3.6% — decentralized, audited',
@@ -110,5 +110,34 @@ export const MOCK_AGENT_ACTIONS: AgentAction[] = [
     suggestedAt: Date.now() - 1000 * 60 * 90,
     requiresApproval: false,
     isReversible: true,
+  },
+  {
+    id: 'action-04',
+    agentId: 'portfolio-intelligence',
+    type: 'rebalance-suggestion',
+    title: 'SOL Liquid Staking — 6.8% APY via Marinade',
+    summary: 'Your 52.3 SOL ($7,427) is sitting unstaked. Liquid staking earns 6.8% APY (annual percentage yield — ~$505/yr) with no lock-up.',
+    reasoning:
+      'Your SOL position has been unstaked for 90+ days, forgoing ~$505 in annual yield. Marinade Finance liquid staking (mSOL) offers 6.8% APY, instant liquidity (redeem via mSOL → SOL on secondary markets), and distributes stake across 450+ validators for security. Risk-adjusted, this is the highest-yield idle-capital opportunity in your current portfolio.',
+    evidence: [
+      'Current SOL balance: 52.3 SOL (~$7,427) — fully unstaked',
+      'Marinade Finance liquid staking APY: 6.8%',
+      'Estimated annual yield: ~$505 at current prices',
+      'No lock-up — mSOL redeemable instantly on secondary market',
+      'Stake distributed across 450+ validators — decentralized',
+    ],
+    suggestedAt: Date.now() - 1000 * 60 * 10,
+    expiresAt: Date.now() + 1000 * 60 * 60 * 48,
+    requiresApproval: true,
+    approvalStatus: 'pending',
+    isReversible: true,
+    reversibilityNote: 'Unstake anytime — mSOL can be redeemed on Marinade or traded on DEXs.',
+    payload: {
+      stakeAsset: 'SOL',
+      stakeAmount: 52.3,
+      stakeAmountUSD: 7427,
+      protocol: 'Marinade Finance',
+      apy: 6.8,
+    },
   },
 ];
