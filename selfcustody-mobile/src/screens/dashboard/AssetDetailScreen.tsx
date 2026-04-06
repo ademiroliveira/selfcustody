@@ -1,8 +1,10 @@
 import React from 'react';
 import { View, Text, StyleSheet, SafeAreaView, ScrollView, Alert, Modal, Pressable } from 'react-native';
-import { useRoute } from '@react-navigation/native';
+import { useRoute, useNavigation } from '@react-navigation/native';
 import type { RouteProp } from '@react-navigation/native';
-import type { DashboardStackParams } from '../../navigation/navigationTypes';
+import type { NativeStackNavigationProp } from '@react-navigation/native-stack';
+import type { DashboardStackParams, RootStackParams } from '../../navigation/navigationTypes';
+import { STAKEABLE_ASSET_IDS } from '../../mocks/staking.mock';
 import { usePortfolioStore } from '../../store/portfolioStore';
 import { useAgentStore } from '../../store/agentStore';
 import { useWalletStore } from '../../store/walletStore';
@@ -16,6 +18,7 @@ type RouteType = RouteProp<DashboardStackParams, 'AssetDetail'>;
 
 export default function AssetDetailScreen() {
   const route = useRoute<RouteType>();
+  const nav = useNavigation<NativeStackNavigationProp<RootStackParams>>();
   const portfolio = usePortfolioStore((s) => s.portfolio);
   const allActions = useAgentStore((s) => s.allActions);
   const primaryAddress = useWalletStore((s) => s.primaryAddress);
@@ -26,6 +29,7 @@ export default function AssetDetailScreen() {
 
   const { asset, priceUSD, price24hChangePct, balance, balanceUSD, costBasis, unrealizedPnL, unrealizedPnLPct, priceHistory } = position;
   const relatedActions = allActions.filter((a) => a.payload && (a.payload.sellAsset === asset.symbol || a.payload.buyAsset === asset.symbol));
+  const isStakeable = STAKEABLE_ASSET_IDS.includes(asset.id);
 
   return (
     <SafeAreaView style={styles.safe}>
@@ -94,6 +98,15 @@ export default function AssetDetailScreen() {
           >
             Swap
           </Button>
+          {isStakeable && (
+            <Button
+              variant="outline"
+              onPress={() => nav.navigate('StakeFlow', { screen: 'StakeAmount', params: { assetId: asset.id } })}
+              style={styles.actionBtn}
+            >
+              Stake
+            </Button>
+          )}
         </View>
       </ScrollView>
 

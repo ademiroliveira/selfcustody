@@ -13,6 +13,16 @@ export type DashboardStackParams = {
   AssetDetail: { assetId: string };
 };
 
+export type StakeFlowParams = {
+  StakeAmount: { assetId: string };
+  StakeReview: { assetId: string; amount: number };
+  StakeConfirm: { assetId: string; amount: number };
+};
+
+export type EarnStackParams = {
+  EarnHub: undefined;
+};
+
 export type AgentStackParams = {
   AgentHub: undefined;
   Chat: { sessionId?: string; contextActionId?: string };
@@ -34,6 +44,7 @@ export type MainTabParams = {
   Portfolio: NavigatorScreenParams<DashboardStackParams>;
   Agents: NavigatorScreenParams<AgentStackParams>;
   Activity: NavigatorScreenParams<ActivityStackParams>;
+  Earn: NavigatorScreenParams<EarnStackParams>;
   SecurityTab: NavigatorScreenParams<SecurityStackParams>;
 };
 
@@ -41,4 +52,5 @@ export type RootStackParams = {
   Onboarding: NavigatorScreenParams<OnboardingStackParams>;
   SeedPhrase: undefined;
   Main: NavigatorScreenParams<MainTabParams>;
+  StakeFlow: NavigatorScreenParams<StakeFlowParams>;
 };

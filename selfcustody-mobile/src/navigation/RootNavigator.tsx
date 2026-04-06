@@ -5,6 +5,7 @@ import { useWalletStore } from '../store/walletStore';
 import MainTabNavigator from './MainTabNavigator';
 import WelcomeScreen from '../screens/onboarding/WelcomeScreen';
 import SeedPhraseScreen from '../screens/onboarding/SeedPhraseScreen';
+import StakeFlowNavigator from './StakeFlowNavigator';
 import { colors } from '../theme';
 
 const Stack = createNativeStackNavigator<RootStackParams>();
@@ -23,7 +24,14 @@ export default function RootNavigator() {
           />
         </>
       ) : (
-        <Stack.Screen name="Main" component={MainTabNavigator} />
+        <>
+          <Stack.Screen name="Main" component={MainTabNavigator} />
+          <Stack.Screen
+            name="StakeFlow"
+            component={StakeFlowNavigator}
+            options={{ presentation: 'modal', headerShown: false }}
+          />
+        </>
       )}
     </Stack.Navigator>
   );

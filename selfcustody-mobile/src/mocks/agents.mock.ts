@@ -111,4 +111,33 @@ export const MOCK_AGENT_ACTIONS: AgentAction[] = [
     requiresApproval: false,
     isReversible: true,
   },
+  {
+    id: 'action-04',
+    agentId: 'portfolio-intelligence',
+    type: 'rebalance-suggestion',
+    title: 'SOL Liquid Staking — 6.8% APY via Marinade',
+    summary: 'Your 52.3 SOL ($7,427) is sitting unstaked. Liquid staking earns 6.8% APY (~$505/yr) with no lock-up.',
+    reasoning:
+      'Your SOL position has been unstaked for 90+ days, forgoing ~$505 in annual yield. Marinade Finance liquid staking (mSOL) offers 6.8% APY, instant liquidity (redeem via mSOL → SOL on secondary markets), and distributes stake across 450+ validators for security. Risk-adjusted, this is the highest-yield idle-capital opportunity in your current portfolio.',
+    evidence: [
+      'Current SOL balance: 52.3 SOL (~$7,427) — fully unstaked',
+      'Marinade Finance liquid staking APY: 6.8%',
+      'Estimated annual yield: ~$505 at current prices',
+      'No lock-up — mSOL redeemable instantly on secondary market',
+      'Stake distributed across 450+ validators — decentralized',
+    ],
+    suggestedAt: Date.now() - 1000 * 60 * 10,
+    expiresAt: Date.now() + 1000 * 60 * 60 * 48,
+    requiresApproval: true,
+    approvalStatus: 'pending',
+    isReversible: true,
+    reversibilityNote: 'Unstake anytime — mSOL can be redeemed on Marinade or traded on DEXs.',
+    payload: {
+      stakeAsset: 'SOL',
+      stakeAmount: 52.3,
+      stakeAmountUSD: 7427,
+      protocol: 'Marinade Finance',
+      apy: 6.8,
+    },
+  },
 ];
