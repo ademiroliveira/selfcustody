@@ -12,7 +12,7 @@ export default function StakeFlowNavigator() {
   return (
     <Stack.Navigator
       screenOptions={{
-        headerStyle: { backgroundColor: '#ffffff' },
+        headerStyle: { backgroundColor: colors.bg.card },
         headerTintColor: colors.text.primary,
         headerTitleStyle: { color: colors.text.primary },
         contentStyle: { backgroundColor: colors.bg.primary },

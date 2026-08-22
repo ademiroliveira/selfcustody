@@ -17,18 +17,36 @@ Python self-custody wallet toolkit + React Native iOS prototype for Frontier inv
 
 ## v0.2 Priorities (pick up here in a new session)
 
-Done: taste calibration (`docs/design/taste/`), DD-001 (wallet name),
+Done: taste calibration + rollout, DD-001 (wallet name), DD-002 (SVG line chart),
 DD-004 (accessibility labels), DD-005 (jargon glossing), Stake flow, Earn Hub.
 
-1. **DD-002** — Replace bar sparkline with SVG line chart (`react-native-svg`)
-2. **DD-003** — Settings back label truncation on narrow screens
-3. **Visual taste rollout** — black CTAs (`#0f172a`), bg → `#f2f2f7`, remove all shadows
+1. **DD-007** — `main` does not typecheck clean: 12 `heroui-native` API drift errors
+   (`isLoading`, `disabled`→`isDisabled`, `ChipColor`) plus a `WalletName` route
+   missing from `RootStackParams`. Run `npx tsc --noEmit` in `selfcustody-mobile/`
+2. **DD-006** — Six `Avatar` uses omit the required `alt`; `EarnHubScreen` and
+   `StakeAmountScreen` have unlabelled touchables (postdated the DD-004 sweep)
+3. **DD-003** — Settings back label truncation on narrow screens
 4. **Send/Receive flow** — currently stub screens in `AssetDetailScreen`
 5. **Demo mode toggle** — Settings screen: reset + replay agent simulator for investor demos
 6. **EAS Build config** — `eas.json` for TestFlight distribution (no Mac needed)
 7. **Inclusive personas** — run the `inclusive-personas` skill (Alex + 2 edge personas)
 8. **Re-run reviews for real** — `design-critic` and `accessibility-reviewer` as
    dispatched agents now that Designpowers is a plugin (see design-state.md caveat)
+
+## Design Tokens
+
+`src/theme/colors.ts` encodes the taste profile's semantic split — read it before
+adding colour:
+
+- **`action.*`** (`#0f172a`) — anything that commits the user's money. All CTAs.
+- **`accent.indigo`** (`#6366F1`) — the AI/agent layer only: chat, agent toggles,
+  suggestion reasoning. **Never a button.**
+- **`bg.primary`** (`#f2f2f7`) is the screen ground; **`bg.card`** (`#ffffff`) sits
+  above it. Depth comes from that contrast — there are no shadows anywhere, and
+  none should be added.
+
+Primary Button colour comes from `--accent` in `global.css`, which overrides
+heroui-native's theme. Change it there, not per-component.
 
 ## React Native App
 

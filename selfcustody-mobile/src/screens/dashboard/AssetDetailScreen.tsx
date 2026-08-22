@@ -47,7 +47,7 @@ export default function AssetDetailScreen() {
           </View>
         </View>
 
-        <PriceChart data={priceHistory} color={asset.iconColor} height={100} />
+        <PriceChart data={priceHistory} height={100} />
 
         <Card>
           <Card.Body style={styles.cardBody}>

@@ -55,7 +55,7 @@ export default function WalletNameScreen() {
 }
 
 const styles = StyleSheet.create({
-  fill: { flex: 1, backgroundColor: '#ffffff' },
+  fill: { flex: 1, backgroundColor: colors.bg.card },
   container: { flex: 1 },
   inner: { flex: 1, paddingHorizontal: 24, paddingTop: 16, paddingBottom: 40, justifyContent: 'space-between' },
   top: { gap: 16 },
@@ -63,7 +63,7 @@ const styles = StyleSheet.create({
   subheading: { color: colors.text.secondary, fontSize: 15, lineHeight: 22 },
   input: {
     borderWidth: 1.5,
-    borderColor: colors.accent.indigo,
+    borderColor: colors.action.primary,
     borderRadius: 12,
     paddingHorizontal: 16,
     paddingVertical: 14,

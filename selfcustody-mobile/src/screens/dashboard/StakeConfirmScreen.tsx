@@ -66,7 +66,7 @@ export default function StakeConfirmScreen() {
         <View style={styles.epochCard}>
           <Text style={styles.epochTitle}>Activation timeline</Text>
           <View style={styles.epochStep}>
-            <View style={[styles.stepDot, { backgroundColor: colors.accent.indigo }]} />
+            <View style={[styles.stepDot, { backgroundColor: colors.action.primary }]} />
             <Text style={styles.stepText}>Transaction submitted now</Text>
           </View>
           <View style={styles.epochLine} />

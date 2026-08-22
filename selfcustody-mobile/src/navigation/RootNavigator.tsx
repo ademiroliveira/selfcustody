@@ -21,12 +21,12 @@ export default function RootNavigator() {
           <Stack.Screen
             name="SeedPhrase"
             component={SeedPhraseScreen}
-            options={{ headerShown: true, title: 'Recovery Phrase', headerStyle: { backgroundColor: '#ffffff' }, headerTintColor: colors.text.primary }}
+            options={{ headerShown: true, title: 'Recovery Phrase', headerStyle: { backgroundColor: colors.bg.card }, headerTintColor: colors.text.primary }}
           />
           <Stack.Screen
             name="WalletName"
             component={WalletNameScreen}
-            options={{ headerShown: true, title: 'Name Your Wallet', headerStyle: { backgroundColor: '#ffffff' }, headerTintColor: colors.text.primary }}
+            options={{ headerShown: true, title: 'Name Your Wallet', headerStyle: { backgroundColor: colors.bg.card }, headerTintColor: colors.text.primary }}
           />
         </>
       ) : (

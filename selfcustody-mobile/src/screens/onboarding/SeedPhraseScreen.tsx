@@ -104,7 +104,7 @@ export default function SeedPhraseScreen() {
 }
 
 const styles = StyleSheet.create({
-  fill: { flex: 1, backgroundColor: '#ffffff' },
+  fill: { flex: 1, backgroundColor: colors.bg.card },
   container: { flex: 1 },
   content: { paddingHorizontal: 24, paddingTop: 8, paddingBottom: 32, gap: 16 },
   heading: { color: colors.text.primary, fontSize: 26, fontWeight: '800' },
@@ -117,10 +117,10 @@ const styles = StyleSheet.create({
   word: { color: colors.text.primary, fontSize: 15, fontWeight: '600', fontFamily: 'monospace' },
   blurredText: { color: 'transparent', textShadowColor: colors.text.primary, textShadowRadius: 6 },
   revealCard: { alignItems: 'center' },
-  revealText: { color: colors.accent.indigo, fontSize: 14, fontWeight: '500', textAlign: 'center' },
+  revealText: { color: colors.action.primary, fontSize: 14, fontWeight: '500', textAlign: 'center' },
   checkRow: { flexDirection: 'row', alignItems: 'flex-start', gap: 12 },
   checkbox: { width: 22, height: 22, borderRadius: 6, borderWidth: 2, borderColor: colors.border.strong, alignItems: 'center', justifyContent: 'center', marginTop: 1 },
-  checkboxChecked: { backgroundColor: colors.accent.indigo, borderColor: colors.accent.indigo },
+  checkboxChecked: { backgroundColor: colors.action.primary, borderColor: colors.action.primary },
   checkmark: { color: '#fff', fontSize: 13, fontWeight: '700' },
   checkLabel: { color: colors.text.secondary, fontSize: 14, flex: 1, lineHeight: 20 },
 });

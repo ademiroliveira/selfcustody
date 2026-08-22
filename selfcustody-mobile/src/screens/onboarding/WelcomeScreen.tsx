@@ -2,6 +2,7 @@ import React from 'react';
 import { View, Text, StyleSheet, SafeAreaView, Alert } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { Button } from 'heroui-native';
+import { colors } from '../../theme';
 
 export default function WelcomeScreen() {
   const nav = useNavigation<any>();
@@ -45,13 +46,15 @@ export default function WelcomeScreen() {
 }
 
 const styles = StyleSheet.create({
-  fill: { flex: 1, backgroundColor: '#ffffff' },
+  fill: { flex: 1, backgroundColor: colors.bg.card },
   container: { flex: 1, paddingHorizontal: 24 },
   hero: { flex: 1, alignItems: 'center', justifyContent: 'center', gap: 16 },
-  logoMark: { fontSize: 72, color: '#6366F1' },
-  tagline: { color: '#0f172a', fontSize: 40, fontWeight: '800', textAlign: 'center', lineHeight: 46 },
-  subtagline: { color: '#64748b', fontSize: 17, textAlign: 'center', lineHeight: 24 },
+  // The one place brand indigo survives outside the agent layer — it is
+  // identity, not an action.
+  logoMark: { fontSize: 72, color: colors.accent.indigo },
+  tagline: { color: colors.text.primary, fontSize: 40, fontWeight: '800', textAlign: 'center', lineHeight: 46 },
+  subtagline: { color: colors.text.secondary, fontSize: 17, textAlign: 'center', lineHeight: 24 },
   actions: { paddingBottom: 40, gap: 12 },
   btn: { width: '100%' },
-  disclaimer: { color: '#94a3b8', fontSize: 12, textAlign: 'center', lineHeight: 18, marginTop: 8 },
+  disclaimer: { color: colors.text.tertiary, fontSize: 12, textAlign: 'center', lineHeight: 18, marginTop: 8 },
 });

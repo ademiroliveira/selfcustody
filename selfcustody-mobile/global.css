@@ -4,3 +4,22 @@
 @import 'heroui-native/styles';
 
 @source './node_modules/heroui-native/lib';
+
+/* Taste profile overrides — docs/design/taste/2026-04-02-selfcustody-taste.md
+ *
+ * Reference: Revolut. Black for commitment, indigo reserved for the agent
+ * layer, surface hierarchy from background colour rather than shadow.
+ * heroui-native's --accent drives every primary Button, so overriding it here
+ * turns all CTAs near-black in one place. */
+@layer theme {
+  :root {
+    @variant light {
+      /* Warm near-white ground; cards stay pure white for surface hierarchy */
+      --background: #f2f2f7;
+
+      /* Near-black CTAs — financial actions carry weight, not colour */
+      --accent: #0f172a;
+      --accent-foreground: #ffffff;
+    }
+  }
+}

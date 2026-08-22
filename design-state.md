@@ -113,17 +113,40 @@ _Calibrated: 2026-04-02 — design-taste agent. Reference: Revolut (clean, minim
 
 ---
 
+### 2026-08-22 — Taste profile applied to code
+
+The April taste profile had never been implemented. `theme/colors.ts` still ran
+`bg.primary: '#ffffff'` with no near-black CTA token at all, and main had shipped
+the Stake flow and Earn Hub against the old palette.
+
+| Decision | Rationale |
+|----------|-----------|
+| Override `--accent` / `--background` in `global.css` | heroui-native themes via CSS variables, so every primary Button turns near-black from one place rather than a per-component sweep |
+| New `colors.action.*` group | Gives the semantic split a name in code: `action` = commits money, `accent.indigo` = agent layer. The rule is now legible at the token level, not just in a document |
+| Indigo kept in chat, agent switch, suggestion reasoning | These are the AI layer the profile reserves it for |
+| Indigo removed from tab bar, focused inputs, MAX button, stake step dot, seed checkbox, section actions | All either financial commitments or neutral chrome |
+| Brand indigo kept on the Welcome logo mark | Identity, not an action — the one legitimate exception |
+| Chart stroke is neutral, not red/green | Profile principle 5. Direction is already carried by `PnLBadge`'s arrow and label, so colour would be redundant encoding |
+| Dropped `color={asset.iconColor}` on `AssetDetailScreen`'s chart | It overrode the neutral stroke with per-asset brand colour, contradicting principle 5 |
+| Hardcoded `#ffffff` replaced with `colors.bg.card` | Nav chrome staying white against the new `#f2f2f7` ground is the surface hierarchy working; it just should not be a literal in ten files |
+
+Shadows required no work — the codebase was already at zero uses.
+
+---
+
 ## Design Debt Register
 
-_Items: 5 | Oldest: 2026-03-27_
+_Items: 7 | Open: 3 | Oldest open: 2026-03-27_
 
 | ID | Date | Source | Severity | What | Who is affected | Suggested fix | Status |
 |----|------|--------|----------|------|----------------|---------------|--------|
-| DD-001 | 2026-03-27 | design-critic | Minor | Dashboard greeting shows "Primary Wallet" — not personalised | All users — cold, impersonal for HNW audience | Prompt for wallet name during onboarding; use it in greeting | Open |
-| DD-002 | 2026-03-27 | design-critic | Minor | PriceChart bar chart reads as histogram/volume, not price line | All users — misleading visual language | Replace with SVG line chart using react-native-svg directly | Open |
+| DD-001 | 2026-03-27 | design-critic | Minor | Dashboard greeting shows "Primary Wallet" — not personalised | All users — cold, impersonal for HNW audience | Prompt for wallet name during onboarding; use it in greeting | **Fixed** 2026-08-22 — `WalletNameScreen` |
+| DD-002 | 2026-03-27 | design-critic | Minor | PriceChart bar chart reads as histogram/volume, not price line | All users — misleading visual language | Replace with SVG line chart using react-native-svg directly | **Fixed** 2026-08-22 — `react-native-svg` `Path`, neutral stroke |
 | DD-003 | 2026-03-27 | design-critic | Minor | Settings back label may truncate on narrow screens | All users | Set explicit back title or suppress back label | Open |
-| DD-004 | 2026-03-27 | accessibility-reviewer | Minor | No accessibilityLabel on AssetRow, AgentCard, and other custom touchables | Screen reader users — VoiceOver announces nothing useful | Add accessibilityLabel and accessibilityRole to all interactive elements | Open |
-| DD-005 | 2026-03-27 | accessibility-reviewer | Minor | "Sharpe ratio" jargon appears in agent reasoning | Non-technical investors, cognitive accessibility | Replace or gloss jargon in agent copy — "risk-adjusted return score (Sharpe ratio)" | Open |
+| DD-004 | 2026-03-27 | accessibility-reviewer | Minor | No accessibilityLabel on AssetRow, AgentCard, and other custom touchables | Screen reader users — VoiceOver announces nothing useful | Add accessibilityLabel and accessibilityRole to all interactive elements | **Fixed** 2026-08-22 — see DD-006 for the remainder |
+| DD-005 | 2026-03-27 | accessibility-reviewer | Minor | "Sharpe ratio" jargon appears in agent reasoning | Non-technical investors, cognitive accessibility | Replace or gloss jargon in agent copy — "risk-adjusted return score (Sharpe ratio)" | **Fixed** 2026-08-22 |
+| DD-006 | 2026-08-22 | typecheck + audit | Minor | Six `Avatar` uses omit the required `alt` prop, and `EarnHubScreen` / `StakeAmountScreen` have unlabelled touchables. The DD-004 sweep predated these screens | Screen reader users — unlabelled avatars and controls | Add `alt` to every `Avatar`; finish the label pass on the Earn and Stake screens | Open |
+| DD-007 | 2026-08-22 | typecheck | Minor | `main` does not typecheck clean — 12 errors from `heroui-native` API drift (`isLoading`, `disabled`→`isDisabled`, `ChipColor`) and a `WalletName` route missing from `RootStackParams` | Developers — no green baseline to build on | Align component props with the installed heroui-native version; add the route to `RootStackParams` | Open |
 
 ---
 
