@@ -56,7 +56,7 @@ _Calibrated: 2026-04-02 — design-taste agent. Reference: Revolut (clean, minim
 - **Primary CTA:** `#0f172a` near-black pill (replaces indigo buttons)
 - **Indigo (`#6366F1`):** Agent status pills, AI chat bubbles, agent glyphs only
 - **Shadows:** None — `elevation: 0` everywhere
-- **Taste document:** `docs/designpowers/taste/2026-04-02-selfcustody-taste.md`
+- **Taste document:** `docs/design/taste/2026-04-02-selfcustody-taste.md`
 
 ---
 

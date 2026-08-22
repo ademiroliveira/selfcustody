@@ -11,19 +11,23 @@ Python self-custody wallet toolkit + React Native iOS prototype for Frontier inv
 - `src/` — Python wallet scaffold + newsdigest FastAPI service
 - `src/web/` — React wallet flow visualizer
 - `selfcustody-mobile/` — React Native iOS prototype (Expo, TypeScript)
-- `designpowers/` — Designpowers design workflow system
+- `designpowers/` — Designpowers design workflow system (git submodule — the tooling)
+- `docs/design/` — this project's design outputs (taste profile, personas)
+- `.claude/` — project hooks and settings
 
 ## v0.2 Priorities (pick up here in a new session)
 
-1. **DD-004** — Add `accessibilityLabel` + `accessibilityRole` to all interactive elements (VoiceOver support)
-2. **DD-005** — Gloss jargon in agent copy ("Sharpe ratio" → "risk-adjusted return score (Sharpe ratio)")
-3. **DD-002** — Replace bar sparkline with SVG line chart (`react-native-svg`)
-4. **DD-001** — Personalised wallet name: prompt during onboarding, use in Dashboard greeting
+Done: taste calibration (`docs/design/taste/`), DD-004 (accessibility labels),
+DD-005 (jargon glossing).
+
+1. **DD-002** — Replace bar sparkline with SVG line chart (`react-native-svg`)
+2. **DD-001** — Personalised wallet name: prompt during onboarding, use in Dashboard greeting
+3. **DD-003** — Settings back label truncation on narrow screens
+4. **Visual taste rollout** — black CTAs (`#0f172a`), bg → `#f2f2f7`, remove all shadows
 5. **Send/Receive flow** — currently stub screens in `AssetDetailScreen`
 6. **Demo mode toggle** — Settings screen: reset + replay agent simulator for investor demos
 7. **EAS Build config** — `eas.json` for TestFlight distribution (no Mac needed)
-8. **Taste calibration** — run Designpowers `design-taste` agent for formal taste profile
-9. **Inclusive personas** — run `inclusive-personas` agent (Alex + 2 edge personas)
+8. **Inclusive personas** — run `inclusive-personas` agent (Alex + 2 edge personas)
 
 ## React Native App
 
@@ -54,4 +58,12 @@ uvicorn newsdigest.api:app --host 0.0.0.0 --port 8000
 ## Design Workflows
 
 For design tasks, follow the instructions in:
-`designpowers/using-designpowers/SKILL.md`
+`designpowers/skills/using-designpowers/SKILL.md`
+
+`designpowers/` is a **git submodule** (`Owl-Listener/designpowers`) — empty in a
+fresh clone or a fresh remote container. `.claude/hooks/session-start.sh` runs
+`git submodule update --init --recursive` at session start, so it should already
+be populated. If the directory is empty, run that command manually.
+
+Design outputs for *this* project live in `docs/design/` (taste profiles,
+personas) — not to be confused with `designpowers/`, which is the tooling.
