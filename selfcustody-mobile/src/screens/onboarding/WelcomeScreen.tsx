@@ -29,10 +29,10 @@ export default function WelcomeScreen() {
           </Text>
         </View>
         <View style={styles.actions}>
-          <Button onPress={handleCreate} style={styles.btn}>
+          <Button onPress={handleCreate} style={styles.btn} accessibilityLabel="Create a new wallet" accessibilityRole="button">
             Create New Wallet
           </Button>
-          <Button variant="outline" onPress={handleImport} style={styles.btn}>
+          <Button variant="outline" onPress={handleImport} style={styles.btn} accessibilityLabel="Import an existing wallet" accessibilityRole="button">
             Import Existing Wallet
           </Button>
           <Text style={styles.disclaimer}>

@@ -19,6 +19,11 @@ export function startAgentSimulator() {
     agentEmitter.emit('action', MOCK_AGENT_ACTIONS[0]);
   }, 15000);
 
+  // T+30s: SOL liquid staking opportunity
+  setTimeout(() => {
+    agentEmitter.emit('action', MOCK_AGENT_ACTIONS[3]);
+  }, 30000);
+
   // T+45s: Threat monitor alert
   setTimeout(() => {
     agentEmitter.emit('action', MOCK_AGENT_ACTIONS[1]);

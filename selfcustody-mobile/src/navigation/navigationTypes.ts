@@ -4,6 +4,7 @@ export type OnboardingStackParams = {
   Welcome: undefined;
   SecurityPrimer: undefined;
   SeedPhrase: undefined;
+  WalletName: undefined;
   VerifySeed: undefined;
   WalletReady: undefined;
 };
@@ -11,6 +12,16 @@ export type OnboardingStackParams = {
 export type DashboardStackParams = {
   Dashboard: undefined;
   AssetDetail: { assetId: string };
+};
+
+export type StakeFlowParams = {
+  StakeAmount: { assetId: string };
+  StakeReview: { assetId: string; amount: number };
+  StakeConfirm: { assetId: string; amount: number };
+};
+
+export type EarnStackParams = {
+  EarnHub: undefined;
 };
 
 export type AgentStackParams = {
@@ -34,6 +45,7 @@ export type MainTabParams = {
   Portfolio: NavigatorScreenParams<DashboardStackParams>;
   Agents: NavigatorScreenParams<AgentStackParams>;
   Activity: NavigatorScreenParams<ActivityStackParams>;
+  Earn: NavigatorScreenParams<EarnStackParams>;
   SecurityTab: NavigatorScreenParams<SecurityStackParams>;
 };
 
@@ -41,4 +53,5 @@ export type RootStackParams = {
   Onboarding: NavigatorScreenParams<OnboardingStackParams>;
   SeedPhrase: undefined;
   Main: NavigatorScreenParams<MainTabParams>;
+  StakeFlow: NavigatorScreenParams<StakeFlowParams>;
 };

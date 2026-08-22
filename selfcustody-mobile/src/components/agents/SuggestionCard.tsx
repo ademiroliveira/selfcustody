@@ -28,15 +28,30 @@ export default function SuggestionCard({ action, onApprove, onReject, onDetails 
         {action.isReversible && action.reversibilityNote && (
           <Text style={styles.reversible}>↩ {action.reversibilityNote}</Text>
         )}
-        <TouchableOpacity onPress={() => setExpanded(!expanded)} accessibilityRole="button" accessibilityLabel={expanded ? 'Show less reasoning' : 'Show full reasoning'}>
+        <TouchableOpacity
+          onPress={() => setExpanded(!expanded)}
+          accessibilityRole="button"
+          accessibilityLabel={expanded ? 'Collapse reasoning' : 'Expand reasoning'}
+        >
           <Text style={styles.expandLink}>{expanded ? 'Show less' : 'Show full reasoning'}</Text>
         </TouchableOpacity>
         {action.requiresApproval && action.approvalStatus === 'pending' && (
           <View style={styles.actions}>
-            <Button onPress={onApprove ?? (() => {})} style={styles.actionBtn} accessibilityLabel={`Approve: ${action.title}`}>
+            <Button
+              onPress={onApprove ?? (() => {})}
+              style={styles.actionBtn}
+              accessibilityLabel="Approve this action"
+              accessibilityRole="button"
+            >
               Approve
             </Button>
-            <Button variant="outline" onPress={onReject ?? (() => {})} style={styles.actionBtn} accessibilityLabel={`Reject: ${action.title}`}>
+            <Button
+              variant="outline"
+              onPress={onReject ?? (() => {})}
+              style={styles.actionBtn}
+              accessibilityLabel="Reject this action"
+              accessibilityRole="button"
+            >
               Reject
             </Button>
           </View>
