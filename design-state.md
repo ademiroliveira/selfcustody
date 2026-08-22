@@ -143,12 +143,22 @@ _Items: 5 | Oldest: 2026-03-27_
 
 ## Agent Pipeline Status
 
-| Agent | Last run | Output |
-|-------|----------|--------|
-| design-strategist | 2026-03-27 | Principles established (inline, not in separate doc) |
-| design-lead | 2026-03-27 | v0.1 prototype built — 82 files |
-| design-critic | 2026-03-27 | Critique complete — 2 critical, 4 major, 3 minor |
-| accessibility-reviewer | 2026-03-27 | Review complete — 2 critical fixed, 2 minor deferred |
-| inclusive-personas | Not run | Scheduled v0.2 |
-| design-taste | 2026-04-02 | Taste profile calibrated — Revolut reference, black CTAs, indigo to agent layer |
-| design-handoff | Not run | Pending production-ready milestone |
+> **Caveat on everything dated before 2026-08-22.** Designpowers was consumed as
+> a git submodule with a pointer in CLAUDE.md, which meant none of its skills or
+> agents were ever registered with Claude Code. The runs below were *inline
+> approximations* — the agent's markdown was read into the main context and the
+> role played there. No dispatched subagent, no independent context window. The
+> outputs are real and still stand, but a critic sharing context with the builder
+> is a weaker critic than a real one. Designpowers is now installed as a plugin
+> (2026-08-22), so future runs are genuine agent dispatches. Re-running
+> `design-critic` and `accessibility-reviewer` for real is worth doing.
+
+| Agent | Last run | How | Output |
+|-------|----------|-----|--------|
+| design-strategist | 2026-03-27 | inline | Principles established (inline, not in separate doc) |
+| design-lead | 2026-03-27 | inline | v0.1 prototype built — 82 files |
+| design-critic | 2026-03-27 | inline | Critique complete — 2 critical, 4 major, 3 minor |
+| accessibility-reviewer | 2026-03-27 | inline | Review complete — 2 critical fixed, 2 minor deferred |
+| design-taste | 2026-04-02 | inline | Taste profile calibrated — Revolut reference, black CTAs, indigo to agent layer |
+| inclusive-personas | Not run | — | Scheduled v0.2 |
+| design-handoff | Not run | — | Pending production-ready milestone |

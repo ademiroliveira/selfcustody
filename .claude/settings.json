@@ -1,14 +1,13 @@
 {
-  "hooks": {
-    "SessionStart": [
-      {
-        "hooks": [
-          {
-            "type": "command",
-            "command": "$CLAUDE_PROJECT_DIR/.claude/hooks/session-start.sh"
-          }
-        ]
+  "extraKnownMarketplaces": {
+    "designpowers": {
+      "source": {
+        "source": "github",
+        "repo": "Owl-Listener/designpowers"
       }
-    ]
+    }
+  },
+  "enabledPlugins": {
+    "designpowers@designpowers": true
   }
 }

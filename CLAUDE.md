@@ -11,9 +11,8 @@ Python self-custody wallet toolkit + React Native iOS prototype for Frontier inv
 - `src/` — Python wallet scaffold + newsdigest FastAPI service
 - `src/web/` — React wallet flow visualizer
 - `selfcustody-mobile/` — React Native iOS prototype (Expo, TypeScript)
-- `designpowers/` — Designpowers design workflow system (git submodule — the tooling)
 - `docs/design/` — this project's design outputs (taste profile, personas)
-- `.claude/` — project hooks and settings
+- `.claude/settings.json` — project settings; declares the Designpowers plugin
 
 ## v0.2 Priorities (pick up here in a new session)
 
@@ -57,13 +56,15 @@ uvicorn newsdigest.api:app --host 0.0.0.0 --port 8000
 
 ## Design Workflows
 
-For design tasks, follow the instructions in:
-`designpowers/skills/using-designpowers/SKILL.md`
+Designpowers is installed as a **Claude Code plugin**, declared at project scope
+in `.claude/settings.json` (`extraKnownMarketplaces` + `enabledPlugins`). Nothing
+to clone or initialise — it resolves automatically in any session, local or
+remote.
 
-`designpowers/` is a **git submodule** (`Owl-Listener/designpowers`) — empty in a
-fresh clone or a fresh remote container. `.claude/hooks/session-start.sh` runs
-`git submodule update --init --recursive` at session start, so it should already
-be populated. If the directory is empty, run that command manually.
+It provides 36 skills and 10 agents. The entry point is the `using-designpowers`
+skill; invoke it rather than calling agents directly. Skills auto-trigger on
+description match — `design-taste`, `design-critic`, `inclusive-personas` and the
+rest are invocable by name.
 
 Design outputs for *this* project live in `docs/design/` (taste profiles,
-personas) — not to be confused with `designpowers/`, which is the tooling.
+personas). Verify with `claude plugin list`.
