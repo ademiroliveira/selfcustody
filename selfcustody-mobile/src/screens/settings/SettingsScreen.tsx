@@ -28,7 +28,7 @@ export default function SettingsScreen() {
             {agents.map((agent) => (
               <View key={agent.id} style={styles.row}>
                 <Text style={styles.label}>{agent.name}</Text>
-                <Switch value={agent.isEnabled} thumbColor={agent.isEnabled ? colors.accent.indigo : colors.text.tertiary} trackColor={{ true: colors.accent.indigo + '55', false: colors.border.default }} onValueChange={() => toggleAgent(agent.id)} />
+                <Switch value={agent.isEnabled} thumbColor={agent.isEnabled ? colors.accent.indigo : colors.text.tertiary} trackColor={{ true: colors.accent.indigo + '55', false: colors.border.default }} onValueChange={() => toggleAgent(agent.id)} accessibilityLabel={`${agent.name} agent. ${agent.isEnabled ? 'Enabled' : 'Disabled'}. Tap to toggle`} accessibilityRole="switch" />
               </View>
             ))}
           </Card>

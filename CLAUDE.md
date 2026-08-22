@@ -11,19 +11,24 @@ Python self-custody wallet toolkit + React Native iOS prototype for Frontier inv
 - `src/` — Python wallet scaffold + newsdigest FastAPI service
 - `src/web/` — React wallet flow visualizer
 - `selfcustody-mobile/` — React Native iOS prototype (Expo, TypeScript)
-- `designpowers/` — Designpowers design workflow system
+  - includes the Stake flow, Earn Hub tab, and `wallet-ia.md` information architecture
+- `docs/design/` — this project's design outputs (taste profile, personas)
+- `.claude/settings.json` — project settings; declares the Designpowers plugin
 
 ## v0.2 Priorities (pick up here in a new session)
 
-1. **DD-004** — Add `accessibilityLabel` + `accessibilityRole` to all interactive elements (VoiceOver support)
-2. **DD-005** — Gloss jargon in agent copy ("Sharpe ratio" → "risk-adjusted return score (Sharpe ratio)")
-3. **DD-002** — Replace bar sparkline with SVG line chart (`react-native-svg`)
-4. **DD-001** — Personalised wallet name: prompt during onboarding, use in Dashboard greeting
-5. **Send/Receive flow** — currently stub screens in `AssetDetailScreen`
-6. **Demo mode toggle** — Settings screen: reset + replay agent simulator for investor demos
-7. **EAS Build config** — `eas.json` for TestFlight distribution (no Mac needed)
-8. **Taste calibration** — run Designpowers `design-taste` agent for formal taste profile
-9. **Inclusive personas** — run `inclusive-personas` agent (Alex + 2 edge personas)
+Done: taste calibration (`docs/design/taste/`), DD-001 (wallet name),
+DD-004 (accessibility labels), DD-005 (jargon glossing), Stake flow, Earn Hub.
+
+1. **DD-002** — Replace bar sparkline with SVG line chart (`react-native-svg`)
+2. **DD-003** — Settings back label truncation on narrow screens
+3. **Visual taste rollout** — black CTAs (`#0f172a`), bg → `#f2f2f7`, remove all shadows
+4. **Send/Receive flow** — currently stub screens in `AssetDetailScreen`
+5. **Demo mode toggle** — Settings screen: reset + replay agent simulator for investor demos
+6. **EAS Build config** — `eas.json` for TestFlight distribution (no Mac needed)
+7. **Inclusive personas** — run the `inclusive-personas` skill (Alex + 2 edge personas)
+8. **Re-run reviews for real** — `design-critic` and `accessibility-reviewer` as
+   dispatched agents now that Designpowers is a plugin (see design-state.md caveat)
 
 ## React Native App
 
@@ -53,5 +58,15 @@ uvicorn newsdigest.api:app --host 0.0.0.0 --port 8000
 
 ## Design Workflows
 
-For design tasks, follow the instructions in:
-`designpowers/using-designpowers/SKILL.md`
+Designpowers is installed as a **Claude Code plugin**, declared at project scope
+in `.claude/settings.json` (`extraKnownMarketplaces` + `enabledPlugins`). Nothing
+to clone or initialise — it resolves automatically in any session, local or
+remote.
+
+It provides 36 skills and 10 agents. The entry point is the `using-designpowers`
+skill; invoke it rather than calling agents directly. Skills auto-trigger on
+description match — `design-taste`, `design-critic`, `inclusive-personas` and the
+rest are invocable by name.
+
+Design outputs for *this* project live in `docs/design/` (taste profiles,
+personas). Verify with `claude plugin list`.

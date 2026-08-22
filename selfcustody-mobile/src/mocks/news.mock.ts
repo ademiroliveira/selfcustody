@@ -17,7 +17,7 @@ export const MOCK_DIGEST: DigestResponse = {
     },
     {
       title: 'Ethereum Staking Yields Hit 12-Month Low as Validator Count Surpasses 1 Million',
-      description: 'ETH staking APR has compressed to 3.1% as the validator set reaches a record 1.02 million validators, diluting yields across all major liquid staking protocols.',
+      description: 'ETH staking annual return (APR) has compressed to 3.1% as the validator count reaches a record 1.02 million, reducing income (yields) across all major liquid staking protocols.',
       url: 'https://example.com/eth-staking',
       publishedAt: new Date(Date.now() - 1000 * 60 * 60 * 5).toISOString(),
       source: 'The Block',
@@ -26,7 +26,7 @@ export const MOCK_DIGEST: DigestResponse = {
     },
     {
       title: 'Pendle Finance TVL Reaches $4.8B Following Yield Tokenization Protocol Upgrade',
-      description: 'Pendle\'s total value locked hit a new all-time high following the launch of its v3 yield market infrastructure, attracting institutional capital.',
+      description: 'Pendle\'s total assets locked in the protocol (total value locked, TVL) hit a new all-time high following the launch of its v3 income marketplace (yield market) infrastructure, attracting institutional capital.',
       url: 'https://example.com/pendle-tvl',
       publishedAt: new Date(Date.now() - 1000 * 60 * 60 * 8).toISOString(),
       source: 'DeFi Llama',

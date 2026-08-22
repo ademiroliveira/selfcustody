@@ -1,39 +1,39 @@
 const CANNED_RESPONSES: Record<string, string> = {
   portfolio: `Your portfolio is currently valued at **$573,421** — up $8,240 (+1.46%) in the last 24 hours.
 
-Your largest position is Bitcoin at 38% ($57,964), followed by PENDLE at 36.2% ($54,360). Both have performed strongly over the past 30 days.
+Your largest holding is Bitcoin at 38% ($57,964), followed by PENDLE at 36.2% ($54,360). Both have performed strongly over the past 30 days.
 
-The key risk to watch: PENDLE's outsize allocation. At 36.2%, a 20% drawdown in PENDLE would reduce your total portfolio by ~7.2%.`,
+The key risk to watch: PENDLE's outsized portfolio share. At 36.2%, a 20% price drop (drawdown) in PENDLE would reduce your total portfolio by ~7.2%.`,
 
   bitcoin: `Bitcoin currently makes up 38% of your portfolio at $57,964 (0.847 BTC at $68,420/BTC).
 
-Your cost basis was ~$49,600/BTC, giving you an unrealized gain of $15,964 (+38%). On-chain metrics remain constructive — spot ETF inflows hit $1.2B today, which has historically preceded 7-14 day appreciation.
+Your average purchase price (cost basis) was ~$49,600/BTC, giving you an unrealized gain (profit on paper, not yet sold) of $15,964 (+38%). Blockchain metrics remain constructive — spot ETF inflows hit $1.2B today, which has historically preceded 7-14 day appreciation.
 
-No immediate action recommended, though the current allocation is within a healthy range for a crypto-native portfolio.`,
+No immediate action recommended, though the current portfolio share is within a healthy range for a crypto-native portfolio.`,
 
   risk: `Your top risk factors right now:
 
-1. **Concentration risk**: PENDLE at 36.2% is well above a typical 25% single-asset cap. A sharp DeFi rotation could cause significant drawdown.
+1. **Too much in one asset**: PENDLE at 36.2% is well above a typical 25% single-asset cap. A sharp shift out of decentralized finance (DeFi) could cause a significant price drop (drawdown).
 
 2. **Stale approval**: A 6-month-old unlimited USDC approval to a deprecated protocol (flagged by Threat Monitor) — this should be revoked.
 
-3. **Staking yield compression**: Your 2.1 staked ETH is earning 3.2% APR on Lido, down from 3.8%. Better alternatives exist.
+3. **Staking income decline**: Your 2.1 locked ETH (staked) is earning 3.2% annual return (APR) on Lido, down from 3.8%. Better alternatives exist.
 
 Overall custody health is strong at 94/100. Keys are secured and backed up.`,
 
-  rebalance: `Portfolio Intelligence has flagged a rebalance opportunity: trim PENDLE from 36.2% to the 25% target.
+  rebalance: `Portfolio Intelligence has flagged a rebalancing opportunity: trim PENDLE from 36.2% to the 25% target (your desired portfolio mix).
 
 **Proposed trade:** Sell 2,650 PENDLE (~$12,004) → Buy 0.1755 BTC
 
-This would improve your estimated Sharpe ratio by +0.18 and reduce concentration risk. The trade requires your approval before execution.
+This would improve your estimated risk-adjusted return score (Sharpe ratio) by +0.18 and reduce the risk of having too much in one asset. The trade requires your approval before execution.
 
 You can approve it from the Agents tab, or ask me to walk you through the reasoning in more detail.`,
 
-  pendle: `Pendle Finance is a yield tokenization protocol — it lets you separate and trade the yield component of yield-bearing assets.
+  pendle: `Pendle Finance is a yield tokenization protocol — it lets you separate and trade the income component of yield-bearing assets (think of it as splitting a bond into its principal and coupon payments).
 
-You hold 12,000 PENDLE at $4.53/token ($54,360 total). It's up 54.1% over 30 days, driven by TVL growth to $4.8B and increasing institutional adoption.
+You hold 12,000 PENDLE at $4.53/token ($54,360 total). It's up 54.1% over 30 days, driven by total assets locked in the protocol (TVL) growing to $4.8B and increasing institutional adoption.
 
-The main risks: protocol complexity, smart contract risk (multiple audits completed), and the fact that yield tokenization is still early. Your position is large enough that any DeFi sector rotation could have a material impact.`,
+The main risks: protocol complexity, smart contract risk (multiple audits completed), and the fact that income tokenization is still early. Your holding is large enough that any rotation out of decentralized finance (DeFi) could have a material impact.`,
 
   custody: `Your custody health score is **94/100 (Excellent)**.
 
@@ -66,8 +66,8 @@ Want to schedule a recovery test? Go to Security → Test Recovery.`,
 
 You can ask me things like:
 - "What's my biggest risk right now?"
-- "Should I rebalance?"
-- "Explain my PENDLE position"
+- "Should I rebalance?" (adjust my portfolio mix)
+- "Explain my PENDLE holding"
 - "Is my custody setup secure?"
 
 What would you like to know?`,

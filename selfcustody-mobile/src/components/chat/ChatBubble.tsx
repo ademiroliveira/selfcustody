@@ -19,7 +19,7 @@ export default function ChatBubble({ message, onRetry }: Props) {
           {message.isStreaming && <Text style={styles.cursor}>▌</Text>}
         </Text>
         {hasError && onRetry && (
-          <TouchableOpacity style={styles.retryBtn} onPress={onRetry}>
+          <TouchableOpacity style={styles.retryBtn} onPress={onRetry} accessibilityRole="button" accessibilityLabel="Retry sending message">
             <Text style={styles.retryText}>↺ Try again</Text>
           </TouchableOpacity>
         )}

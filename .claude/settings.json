@@ -1,0 +1,13 @@
+{
+  "extraKnownMarketplaces": {
+    "designpowers": {
+      "source": {
+        "source": "github",
+        "repo": "Owl-Listener/designpowers"
+      }
+    }
+  },
+  "enabledPlugins": {
+    "designpowers@designpowers": true
+  }
+}
