@@ -59,7 +59,7 @@ export default function MainTabNavigator() {
       <Tab.Screen
         name="Earn"
         component={EarnStack}
-        options={{ tabBarLabel: 'Earn', tabBarIcon: () => <TabIcon label="Earn" emoji="◎" /> }}
+        options={{ tabBarLabel: 'Earn', tabBarIcon: () => <TabIcon label="Earn" emoji="◎" />, tabBarAccessibilityLabel: 'Earn tab' }}
       />
       <Tab.Screen
         name="SecurityTab"
